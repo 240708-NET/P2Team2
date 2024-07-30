@@ -134,6 +134,7 @@ namespace CharacterData.Repo
 
         /// <summary>
         /// Saves a character to the database.
+        /// Creates a character and adds to the database
         /// </summary>
         /// <param name="myCharacter">The character to be saved.</param>
         public void SaveCharacter(Character myCharacter)

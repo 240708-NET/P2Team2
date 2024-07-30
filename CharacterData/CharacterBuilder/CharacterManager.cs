@@ -361,7 +361,7 @@ namespace CharacterBuilder
             //Equipment as proof of concept for adding to inventory and equipping items
             Equipment longsword = new Equipment()
             {
-                name = "Longsword",
+                name = "Broadsword",
                 description = "I am a longsword.",
                 kindOfWeapon = "melee",
                 weight = 10,

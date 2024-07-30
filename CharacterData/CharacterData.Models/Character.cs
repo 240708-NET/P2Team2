@@ -13,6 +13,7 @@ namespace CharacterData.Models
         public int? level { get; set; } // Level of the character
         public int? experience { get; set; } // Experience points of the character
         public string? characterClassName { get; set; } // Class of the character
+        //public int gold { get; set; } = 0;
 
         //Character properties from other classes
         public ArmorClass? armorClass { get; set; }
@@ -41,6 +42,7 @@ namespace CharacterData.Models
 
             experience = 0;
             level = 1;
+            //gold = 0;
             this.characterClassName = this.characterClass.GetCharacterClassName();
 
             abilityScores.dex = characterClass.GetDex();
