@@ -14,7 +14,7 @@ namespace CharacterData.Models
         public int? experience { get; set; } // Experience points of the character
         public string? characterClassName { get; set; } // Class of the character
         //public int gold { get; set; } = 0;
-
+        public int baseScore = 10;
         //Character properties from other classes
         public ArmorClass? armorClass { get; set; }
         public AbilityScores abilityScores { get; set; }

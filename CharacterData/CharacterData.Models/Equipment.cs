@@ -20,53 +20,14 @@ namespace CharacterData.Models
         /// <summary>
         /// The slot that the equipment is currently in
         /// </summary>
-        public string? equipmentSlot = "No Slot Given";
-
-        /// <summary>
-        /// Determines whether the equipment is in the head slot
-        /// </summary>
-        public bool? headSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the chest slot
-        /// </summary>
-        public bool? chestSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the arms slot
-        /// </summary>
-        public bool? armsSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the legs slot
-        /// </summary>
-        public bool? legsSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the right hand slot
-        /// </summary>
-        public bool? rightHandSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the left hand slot
-        /// </summary>
-        public bool? leftHandSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the necklace slot
-        /// </summary>
-        public bool? necklaceSlot { get; set; } = false;
-
-        /// <summary>
-        /// Determines whether the equipment is in the ring slot
-        /// </summary>
-        public bool? ringSlot { get; set; } = false;
-
+        public string? SlotType { get; set; }
         /// <summary>
         /// The name of the equipment
         /// </summary>
-        public string? name { get; set; } = "No Name Given";
+        public string name { get; set; } 
 
+        public int BuyPrice{get;set;}
+        public int SellPrice{get;set;}
         /// <summary>
         /// The description of the equipment
         /// </summary>
@@ -75,7 +36,7 @@ namespace CharacterData.Models
         /// <summary>
         /// The weight of the equipment
         /// </summary>
-        public double? weight { get; set; } = 0;
+        public double weight { get; set; } 
 
         /// <summary>
         /// The kind of weapon that the equipment is, if it is a weapon
@@ -95,37 +56,37 @@ namespace CharacterData.Models
         /// <summary>
         /// The melee damage bonus of the equipment
         /// </summary>
-        public int meleeDamageBonus { get; set; } = 0;
+        public int? meleeDamageBonus { get; set; } = 0;
 
         /// <summary>
         /// The ranged damage bonus of the equipment
         /// </summary>
-        public int rangedDamageBonus { get; set; } = 0;
+        public int? rangedDamageBonus { get; set; } = 0;
 
         /// <summary>
         /// The magic damage bonus of the equipment
         /// </summary>
-        public int magicDamageBonus { get; set; } = 0;
+        public int? magicDamageBonus { get; set; } = 0;
 
         /// <summary>
         /// The melee attack bonus of the equipment
         /// </summary>
-        public int meleeAttackBonus { get; set; } = 0;
+        public int? meleeAttackBonus { get; set; } = 0;
 
         /// <summary>
         /// The ranged attack bonus of the equipment
         /// </summary>
-        public int rangedAttackBonus { get; set; } = 0;
+        public int? rangedAttackBonus { get; set; } = 0;
 
         /// <summary>
         /// The magic attack bonus of the equipment
         /// </summary>
-        public int magicAttackBonus { get; set; } = 0;
+        public int? magicAttackBonus { get; set; } = 0;
 
         /// <summary>
         /// The armor class bonus of the equipment
         /// </summary>
-        public int armorClassBonus { get; set; } = 0;
+        public int? armorClassBonus { get; set; } = 0;
 
         /// <summary>
         /// The attack type of the equipment
@@ -140,22 +101,22 @@ namespace CharacterData.Models
         /// <summary>
         /// The strength requirement of the equipment
         /// </summary>
-        public int strRequirement { get; set; } = 0;
+        public int? strRequirement { get; set; } = 0;
 
         /// <summary>
         /// The dexterity requirement of the equipment
         /// </summary>
-        public int dexRequirement { get; set; } = 0;
+        public int? dexRequirement { get; set; } = 0;
 
         /// <summary>
         /// The wisdom requirement of the equipment
         /// </summary>
-        public int wisRequirement { get; set; } = 0;
+        public int? wisRequirement { get; set; } = 0;
 
         /// <summary>
         /// The magic requirement of the equipment
         /// </summary>
-        public int magicRequirement { get; set; } = 0;
+        public int? magicRequirement { get; set; } = 0;
 
         public string whatIsSlot()
         {
