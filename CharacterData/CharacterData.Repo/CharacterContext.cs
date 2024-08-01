@@ -23,7 +23,7 @@ namespace CharacterData.Repo
         {
             // Read in the connection string from a file named "connectionstring"
             // This is a secret, so it's in a file that's not checked into version control
-            string ConnectionString = File.ReadAllText("./connectionstring");
+            string ConnectionString = File.ReadAllText(@"./connectionstring");
 
             // Use the connection string to connect to the database
             optionsBuilder.UseSqlServer(ConnectionString);
