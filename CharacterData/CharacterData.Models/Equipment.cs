@@ -217,8 +217,6 @@ namespace CharacterData.Models
                     strRequirement = 12,
                     dexRequirement = 15,
                     rightHandSlot = true,
-
-
                 };
 
                 public Equipment bow = new Equipment(){
@@ -233,8 +231,6 @@ namespace CharacterData.Models
                     dexRequirement = 15,
                     rightHandSlot = true,
                     leftHandSlot = true,
-
-
                 };
 
                 public Equipment leatherChest = new Equipment(){
@@ -246,7 +242,6 @@ namespace CharacterData.Models
                     dexRequirement = 13,
                     armorClassBonus = 3,
                     chestSlot = true,
-
                 };
 
                 public Equipment clothChest = new Equipment(){
