@@ -90,7 +90,7 @@ namespace CharacterData.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Equipment",
+                name: "Item",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -238,7 +238,7 @@ namespace CharacterData.Repo.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Equipment_Characterid",
-                table: "Equipment",
+                table: "Item",
                 column: "Characterid");
 
             migrationBuilder.CreateIndex(
@@ -279,7 +279,7 @@ namespace CharacterData.Repo.Migrations
                 name: "CharacterClass");
 
             migrationBuilder.DropTable(
-                name: "Equipment");
+                name: "Item");
 
             migrationBuilder.DropTable(
                 name: "HitPoints");

@@ -5,24 +5,37 @@ namespace CharacterData.Models
 {
     public class Character
     {
-        public List<Equipment> inventory { get; set; }
+        public List<Item> inventory { get; set; }
 
         //Character Properties from the Character class
         public int id { get; set; } // Unique identifier for the character
-        public string? name { get; set; } = "Test 6"; // Name of the character
-        public int? level { get; set; } // Level of the character
-        public int? experience { get; set; } // Experience points of the character
-        public string? characterClassName { get; set; } // Class of the character
-        //public int gold { get; set; } = 0;
-        public int baseScore = 10;
+        public string? name { get; set; } = ""; // Name of the character
+        public int level { get; set; } = 1; // Level of the character
+        public int experience { get; set; } = 0; // Experience points of the character
+        public string characterClassName { get; set; } = ""; // Class of the character
+        public int currentHitPoints {get; set;} = 0; // Current hit points for the character
+        private int maxHitPoints {get; set;} = 0; // Max hit points for the character
+        private int armorClass {get; set;} = 0; // Armor class for the character
+        public int gold { get; set; } = 0; // Gold of the character   
+
+        //Ability Scores
+        private int baseScore = 10;
+        public int str {get; set;} = baseScore;
+        public int dex {get; set;} = baseScore;
+        public int wis {get; set;} = baseScore;
+        public int magic {get; set;} = baseScore;
+        public int magicResist {get; set;} = baseScore;
+
+        //Attack Bonusses and Damage Bonuses
+        private int meleeAttackBonus {get; set;} = 0;
+        private int meleeDamageBonus {get; set;} = 0;
+        private int rangedAttackBonus {get; set;} = 0;
+        private int rangedDamageBonus {get; set;} = 0;
+        private int magicAttackBonus {get; set;} = 0;
+        private int magicDamageBonus {get; set;} = 0;
+        
         //Character properties from other classes
-        public ArmorClass? armorClass { get; set; }
-        public AbilityScores abilityScores { get; set; }
-        public HitPoints hitPoints { get; set; }
-        public CharacterClass? characterClass { get; set; }
-        public MagicAttack? magicAttack { get; set; }
-        public MeleeAttack? meleeAttack { get; set; }
-        public RangedAttack? rangedAttack { get; set; }
+        private CharacterClass? characterClass { get; set; }
 
         public Character() { }
 
@@ -30,38 +43,30 @@ namespace CharacterData.Models
         {
             this.characterClass = newCharacterClass;
 
-            abilityScores = new AbilityScores();
-
-            magicAttack = new MagicAttack();
-            meleeAttack = new MeleeAttack();
-            rangedAttack = new RangedAttack();
-
-            inventory = new List<Equipment>();
-            //equippedSlots = new List<Equipment>();
-            //equippedSlots.Add(null);
+            this.inventory = new List<Item>();
 
             experience = 0;
             level = 1;
-            //gold = 0;
-            this.characterClassName = this.characterClass.GetCharacterClassName();
+            gold = 500;
+            this.characterClassName = this.characterClass.className;
 
-            abilityScores.dex = characterClass.GetDex();
-            abilityScores.str = characterClass.GetStr();
-            abilityScores.wis = characterClass.GetWis();
-            abilityScores.magic = characterClass.GetMagic();
-            abilityScores.magicResist = characterClass.GetMagicResist();
+            this.dex = characterClass.dex;
+            this.str = characterClass.str;
+            this.wis = characterClass.wis;
+            this.magic = characterClass.magic;
+            this.magicResist = characterClass.magicResist;
 
-            armorClass = new ArmorClass((abilityScores.dex + abilityScores.str));
-            hitPoints = new HitPoints((abilityScores.str + abilityScores.wis));
+            armorClass = (this.dex + this.str);
+            maxHitPoints = (this.str + this.wis);
 
-            magicAttack.magicDamageBonus = abilityScores.magic - 10;
-            magicAttack.magicAttackBonus = (abilityScores.wis - 10) + (abilityScores.magic - 10);
+            this.magicDamageBonus = this.magic - 10;
+            this.magicAttackBonus = (this.wis - 10) + (this.magic - 10);
 
-            meleeAttack.meleeDamageBonus = abilityScores.str - 10;
-            meleeAttack.meleeAttackBonus = (abilityScores.str - 10) + (abilityScores.dex - 10);
+            this.meleeDamageBonus = this.str - 10;
+            this.meleeAttackBonus = (this.str - 10) + (this.dex - 10);
 
-            rangedAttack.rangedDamageBonus = (abilityScores.dex - 10);
-            rangedAttack.rangedAttackBonus = (abilityScores.str - 10) + (abilityScores.dex - 10);
+            this.rangedDamageBonus = (this.dex - 10);
+            this.rangedAttackBonus = (this.str - 10) + (this.dex - 10);
         }
 
         /// <summary>
@@ -84,17 +89,17 @@ namespace CharacterData.Models
             Console.WriteLine($"\nCongratulations! You have just leveled up from {level - 1} to {level}!");
             Console.WriteLine($"------------------------------------------------------");
 
-            if (characterClassName == "Wizard")
+            if (characterClassName.ToLower() == "wizard")
             {
-                abilityScores.wis += 3;
-                abilityScores.magic += 3;
+                this.wis += 3;
+                this.magic += 3;
                 Console.WriteLine($"As a {characterClassName}, your Wisdom and Magic ability scores increased by 3 and you get 1 additional point to add to any other ability score.\n");
 
                 exit = false;
                 while (!exit)
                 {
                     Console.WriteLine($"Your Current Ability Scores Are Now:");
-                    Console.WriteLine($"Str: {abilityScores.str} \nDex: {abilityScores.dex} \nWis: {abilityScores.wis} \nMagic: {abilityScores.magic} \nMagic Resistance: {abilityScores.magicResist}\n");
+                    Console.WriteLine($"Str: {this.str} \nDex: {this.dex} \nWis: {this.wis} \nMagic: {this.magic} \nMagic Resistance: {this.magicResist}\n");
 
                     Console.WriteLine("Which Ability Score Would You Like To Increase?");
                     Console.WriteLine("1. Str");
@@ -109,32 +114,32 @@ namespace CharacterData.Models
                     {
                         case "1":
                             {
-                                abilityScores.str++;
+                                this.str++;
                                 exit = true;
                                 break;
                             }
                         case "2":
                             {
-                                abilityScores.dex++;
+                                this.dex++;
                                 exit = true;
                                 break;
                             }
                         case "3":
                             {
-                                abilityScores.wis++;
+                                this.wis++;
                                 exit = true;
                                 break;
                             }
                         case "4":
                             {
-                                abilityScores.magic++;
+                                this.magic++;
                                 exit = true;
                                 break;
                             }
                         case "5":
                             {
 
-                                abilityScores.magicResist++;
+                                this.magicResist++;
                                 exit = true;
                                 break;
                             }
@@ -152,10 +157,10 @@ namespace CharacterData.Models
                 Console.WriteLine("What's next adventurer?\n");
             }
 
-            if (characterClassName == "Fighter")
+            if (characterClassName.ToLower() == "fighter")
             {
-                abilityScores.str += 3;
-                abilityScores.magicResist += 3;
+                this.str += 3;
+                this.magicResist += 3;
 
                 Console.WriteLine($"As a {characterClassName}, your Strength and Magic Resist ability scores increased by 3 and you get 1 additional point to add to any other ability score.\n");
 
@@ -163,7 +168,7 @@ namespace CharacterData.Models
                 while (!exit)
                 {
                     Console.WriteLine($"Your Current Ability Scores Are Now:");
-                    Console.WriteLine($"Str: {abilityScores.str}, \nDex: {abilityScores.dex}, \nWis: {abilityScores.wis} \nMagic: {abilityScores.magic}, \nMagic Resistance: {abilityScores.magicResist}\n");
+                    Console.WriteLine($"Str: {this.str}, \nDex: {this.dex}, \nWis: {this.wis} \nMagic: {this.magic}, \nMagic Resistance: {this.magicResist}\n");
 
                     Console.WriteLine("Which Ability Score Would You Like To Increase?");
                     Console.WriteLine("1. Str");
@@ -178,31 +183,31 @@ namespace CharacterData.Models
                     {
                         case "1":
                             {
-                                abilityScores.str++;
+                                this.str++;
                                 exit = true;
                                 break;
                             }
                         case "2":
                             {
-                                abilityScores.dex++;
+                                this.dex++;
                                 exit = true;
                                 break;
                             }
                         case "3":
                             {
-                                abilityScores.wis++;
+                                this.wis++;
                                 exit = true;
                                 break;
                             }
                         case "4":
                             {
-                                abilityScores.magic++;
+                                this.magic++;
                                 exit = true;
                                 break;
                             }
                         case "5":
                             {
-                                abilityScores.magicResist++;
+                                this.magicResist++;
                                 exit = true;
                                 break;
                             }
@@ -221,13 +226,13 @@ namespace CharacterData.Models
                 Console.WriteLine("What's next adventurer?\n");
             }
 
-            if (characterClassName == "Shadow Weaver")
+            if (characterClassName.ToLower() == "shadow weaver")
             {
-                abilityScores.dex += 3;
-                abilityScores.magic += 3;
+                this.dex += 3;
+                this.magic += 3;
                 Console.WriteLine($"I see you are a {characterClassName}!");
                 Console.WriteLine($"\nYour Current Ability Scores Are Now:");
-                Console.WriteLine($"Str: {abilityScores.str}, \nDex: {abilityScores.dex}, \nWis: {abilityScores.wis} \nMagic: {abilityScores.magic}, \nMagic Resistance: {abilityScores.magicResist}\n");
+                Console.WriteLine($"Str: {this.str}, \nDex: {this.dex}, \nWis: {this.wis} \nMagic: {this.magic}, \nMagic Resistance: {this.magicResist}\n");
 
                 exit = false;
                 while (!exit)
@@ -247,31 +252,31 @@ namespace CharacterData.Models
                     {
                         case "1":
                             {
-                                abilityScores.str++;
+                                this.str++;
                                 exit = true;
                                 break;
                             }
                         case "2":
                             {
-                                abilityScores.dex++;
+                                this.dex++;
                                 exit = true;
                                 break;
                             }
                         case "3":
                             {
-                                abilityScores.wis++;
+                                this.wis++;
                                 exit = true;
                                 break;
                             }
                         case "4":
                             {
-                                abilityScores.magic++;
+                                this.magic++;
                                 exit = true;
                                 break;
                             }
                         case "5":
                             {
-                                abilityScores.magicResist++;
+                                this.magicResist++;
                                 exit = true;
                                 break;
                             }
@@ -292,7 +297,7 @@ namespace CharacterData.Models
         {
             string inventoryItemList = "";
 
-            foreach (Equipment e in inventory)
+            foreach (Item e in inventory)
             {
                 if (e == null) { }
                 else
@@ -311,7 +316,7 @@ namespace CharacterData.Models
         {
             string equippedItemList = "";
 
-            foreach (Equipment e in inventory)
+            foreach (Item e in inventory)
             {
                 if (e.isEquipped == true)
                     equippedItemList += (e.name + " ");
@@ -321,22 +326,22 @@ namespace CharacterData.Models
         }
 
         //This method adds an equipment object to the inventory list
-        public void AddToInventory(Equipment equipment)
+        public void AddToInventory(Item equipment)
         {
             //Add the equipment object to the inventory list
             inventory.Add(equipment);
         }
 
-        public void RemoveFromInventory(Equipment equipment)
+        public void RemoveFromInventory(Item equipment)
         {
             inventory.Remove(equipment);
         }
 
-        public bool EquipItem(Equipment equipment)
+        public bool EquipItem(Item equipment)
         {
             if (inventory.Contains(equipment) && equipment.isEquipped == false)
             {
-                foreach (Equipment p in inventory)
+                foreach (Item p in inventory)
                 {
                     if (p.whatIsSlot() == equipment.whatIsSlot())
                     {
@@ -356,7 +361,7 @@ namespace CharacterData.Models
             return false;
         }
 
-        public bool UnequipItem(Equipment equippedItem)
+        public bool UnequipItem(Item equippedItem)
         {
             if (inventory.Contains(equippedItem) && equippedItem.isEquipped == true)
             {
@@ -370,13 +375,13 @@ namespace CharacterData.Models
 
         
         //NEED TO IMPLEMENT EVENTUALLY
-        // private bool CanEquip(Equipment equipment) // Replace with actual logic for character checks
+        // private bool CanEquip(Item equipment) // Replace with actual logic for character checks
         // {
         //     // Implement checks based on character class, stats, etc.
         //     return true; // Replace with actual implementation
         // }
 
-        public void UpdateCharacterStats(Equipment equipment, bool isEquipping = true)
+        public void UpdateCharacterStats(Item equipment, bool isEquipping = true)
         {
             // Update character stats based on equipment bonuses (positive or negative based on isEquipping)
 
@@ -385,37 +390,41 @@ namespace CharacterData.Models
             {
                 armorClass.AC += equipment.armorClassBonus;
 
-                meleeAttack.meleeAttackBonus += equipment.meleeAttackBonus;
+                this.meleeAttackBonus += equipment.meleeAttackBonus;
 
-                meleeAttack.meleeDamageBonus += equipment.meleeDamageBonus;
+                this.meleeDamageBonus += equipment.meleeDamageBonus;
 
-                rangedAttack.rangedAttackBonus += equipment.rangedAttackBonus;
+                this.rangedAttackBonus += equipment.rangedAttackBonus;
 
-                rangedAttack.rangedDamageBonus += equipment.rangedDamageBonus;
+                this.rangedDamageBonus += equipment.rangedDamageBonus;
 
-                magicAttack.magicAttackBonus += equipment.magicAttackBonus;
+                this.magicAttackBonus += equipment.magicAttackBonus;
 
-                magicAttack.magicDamageBonus += equipment.magicDamageBonus;
+                this.magicDamageBonus += equipment.magicDamageBonus;
 
-                hitPoints.hitPoints += equipment.hitPoints;
+                this.maxHitPoints += equipment.maxHitPointBonus;
+
+                this.currentHitPoints += equipment.currentHitPointBonus;
             }
             else
             {
                 armorClass.AC -= equipment.armorClassBonus;
 
-                meleeAttack.meleeAttackBonus -= equipment.meleeAttackBonus;
+                this.meleeAttackBonus -= equipment.meleeAttackBonus;
 
-                meleeAttack.meleeDamageBonus -= equipment.meleeDamageBonus;
+                this.meleeDamageBonus -= equipment.meleeDamageBonus;
 
-                rangedAttack.rangedAttackBonus -= equipment.rangedAttackBonus;
+                this.rangedAttackBonus -= equipment.rangedAttackBonus;
 
-                rangedAttack.rangedDamageBonus -= equipment.rangedDamageBonus;
+                this.rangedDamageBonus -= equipment.rangedDamageBonus;
 
-                magicAttack.magicAttackBonus -= equipment.magicAttackBonus;
+                this.magicAttackBonus -= equipment.magicAttackBonus;
 
-                magicAttack.magicDamageBonus -= equipment.magicDamageBonus;
+                this.magicDamageBonus -= equipment.magicDamageBonus;
 
-                hitPoints.hitPoints -= equipment.hitPoints;
+                this.maxHitPoints -= equipment.maxHitPointBonus;
+
+                this.currentHitPoints -= equipment.currentHitPointBonus;
             }
         }
 
@@ -437,23 +446,23 @@ namespace CharacterData.Models
     $"║ Name: {name}         Class: {this.characterClassName}       ║\n" +
     $"║ Level: {this.level}                   XP: {this.experience}                ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
-    $"║  - HP: {this.hitPoints.hitPoints}                                       ║\n" +
+    $"║  - Max HP: {this.maxHitPoints}                                       ║\n" +
     $"║  - AC: {this.armorClass.AC}                                       ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
     "║                Ability Scores                   ║\n" +
-    $"║  - Str: {this.abilityScores.str}                    - Magic: {this.abilityScores.magic}       ║\n" +
-    $"║  - Dex: {this.abilityScores.dex}                    - Magic Res: {this.abilityScores.magicResist}   ║\n" +
-    $"║  - Wis: {this.abilityScores.wis}                                      ║\n" +
+    $"║  - Str: {this.str}                    - Magic: {this.magic}       ║\n" +
+    $"║  - Dex: {this.dex}                    - Magic Res: {this.magicResist}   ║\n" +
+    $"║  - Wis: {this.wis}                                      ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
     "║                  Attack Bonuses                 ║\n" +
-    $"║  - Melee Attack Bonus:  +{this.meleeAttack.meleeAttackBonus}                      ║\n" +
-    $"║  - Melee Damage Bonus:  +{this.meleeAttack.meleeDamageBonus}                      ║\n" +
+    $"║  - Melee Attack Bonus:  +{this.meleeAttackBonus}                      ║\n" +
+    $"║  - Melee Damage Bonus:  +{this.meleeDamageBonus}                      ║\n" +
     $"║-------------------------------------------------║\n" +
-    $"║  - Ranged Attack Bonus: +{this.rangedAttack.rangedAttackBonus}                      ║\n" +
-    $"║  - Ranged Damage Bonus: +{this.rangedAttack.rangedDamageBonus}                      ║\n" +
+    $"║  - Ranged Attack Bonus: +{this.rangedAttackBonus}                      ║\n" +
+    $"║  - Ranged Damage Bonus: +{this.rangedDamageBonus}                      ║\n" +
     $"║-------------------------------------------------║\n" +
-    $"║  - Magic Attack Bonus:  +{this.magicAttack.magicAttackBonus}                      ║\n" +
-    $"║  - Magic Damage Bonus:  +{this.magicAttack.magicDamageBonus}                      ║\n" +
+    $"║  - Magic Attack Bonus:  +{this.magicAttackBonus}                      ║\n" +
+    $"║  - Magic Damage Bonus:  +{this.magicDamageBonus}                      ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
     "║                  Equipped Items                 ║\n" +
     $"║           {equippedDisplay}                                      ║ \n" +

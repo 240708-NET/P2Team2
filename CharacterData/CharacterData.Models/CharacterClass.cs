@@ -2,12 +2,28 @@ namespace CharacterData.Models
 {
     public class CharacterClass
     {
-        private string characterClassName { get; set; }
-        private int dexBonus { get; set; }
-        private int strBonus { get; set;}
-        private int wisBonus { get; set;}
-        private int magicBonus { get; set;}
-        private int magicResistBonus { get; set;}
+        public string className { get; set; }
+        public int dex { get; set; }
+        public int str { get; set; }
+        public int wis { get; set; }
+        public int magic { get; set; }
+        public int magicResist { get; set; }
+
+        public int baseScore {get; set;} = 10;
+
+        // Examples:
+        // "Fighter", 3, 5, 1, 1, 5
+        // "Wizard", 1, 1, 5, 5, 3
+        // "Shadow Weaver", 5, 1, 3, 5, 1
+        public CharacterClass(string name, int dexMod, int strMod, int wisMod, int magicMod, int magicResistMod)
+        {
+            this.className = name;
+            this.dex = baseScore+dexMod;
+            this.str = baseScore+strMod;
+            this.wis = baseScore+wisMod;
+            this.magic = baseScore+magicMod;
+            this.magicResist = baseScore+magicResistMod;
+        }
 
         // public virtual void generateAbilityScores()
         // {

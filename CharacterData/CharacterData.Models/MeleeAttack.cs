@@ -13,11 +13,11 @@ namespace CharacterData.Models
         /// <summary>
         /// The unique identifier of the character this melee attack belongs to.
         /// </summary>
-        public int characterID { get; set; }
+        // public int characterID { get; set; }
 
-        /// <summary>
-        /// The character this melee attack belongs to.
-        /// </summary>
+        // /// <summary>
+        // /// The character this melee attack belongs to.
+        // /// </summary>
         public Character character { get; set; }
 
         /// <summary>
@@ -34,5 +34,10 @@ namespace CharacterData.Models
         /// See the DnD 5e rules for more details on melee damage bonus.
         /// </remarks>
         public int meleeDamageBonus { get; set; }
+    }
+
+    public class MeleeAttack(){
+        this.character = null;
+        
     }
 }

@@ -13,7 +13,7 @@ namespace CharacterData.Repo
         /// A set of all characters in the database.
         /// </summary>
         public DbSet<Character> Characters => Set<Character>();
-        public DbSet<Equipment> Equipment => Set<Equipment>();
+        public DbSet<Item> Item => Set<Item>();
 
         /// <summary>
         /// Gets called when the DbContext is configuring itself.

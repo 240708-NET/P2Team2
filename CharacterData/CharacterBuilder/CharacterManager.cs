@@ -358,8 +358,8 @@ namespace CharacterBuilder
         /// </summary>
         public void CreateNewCharacter()
         {
-            //Equipment as proof of concept for adding to inventory and equipping items
-            Equipment longsword = new Equipment()
+            //Item as proof of concept for adding to inventory and equipping items
+            Item longsword = new Item()
             {
                 name = "Broadsword",
                 description = "I am a longsword.",
@@ -590,7 +590,7 @@ namespace CharacterBuilder
             string inventoryItemList = "";
             int itemNumber = 0;
 
-            foreach (Equipment e in newCharacter.inventory)
+            foreach (Item e in newCharacter.inventory)
             {
                 if (e != null)
                 {
@@ -611,7 +611,7 @@ namespace CharacterBuilder
             string equippedItemList = "";
             int itemNumber = 1;
 
-            foreach (Equipment e in newCharacter.inventory)
+            foreach (Item e in newCharacter.inventory)
             {
                 if (e != null && e.isEquipped == true)
                 {

@@ -5,7 +5,7 @@ namespace CharacterData.Models
     //Class for Armor Class
     //This class is a representation of a character's armor class
     //It contains the AC (Armor Class) and a characterID to associate it with a character
-    //The AC is calculated by 10 + Dexterity Modifier + Equipment Modifier
+    //The AC is calculated by 10 + Dexterity Modifier + Item Modifier
     public class ArmorClass
     {
         //The Armor Class

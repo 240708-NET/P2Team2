@@ -125,7 +125,7 @@ namespace CharacterData.Repo.Migrations
                     b.ToTable("CharacterClass");
                 });
 
-            modelBuilder.Entity("CharacterData.Models.Equipment", b =>
+            modelBuilder.Entity("CharacterData.Models.Item", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +224,7 @@ namespace CharacterData.Repo.Migrations
 
                     b.HasIndex("Characterid");
 
-                    b.ToTable("Equipment");
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("CharacterData.Models.HitPoints", b =>
@@ -357,7 +357,7 @@ namespace CharacterData.Repo.Migrations
                     b.Navigation("character");
                 });
 
-            modelBuilder.Entity("CharacterData.Models.Equipment", b =>
+            modelBuilder.Entity("CharacterData.Models.Item", b =>
                 {
                     b.HasOne("CharacterData.Models.Character", null)
                         .WithMany("inventory")

@@ -228,8 +228,8 @@ namespace CharacterData.Repo
 
             if(foundCharacter.inventory != null)
             {
-                foreach (Equipment e in foundCharacter.inventory)
-                    context.Equipment.Remove(e);
+                foreach (Item e in foundCharacter.inventory)
+                    context.Item.Remove(e);
             }
             context.Characters.Remove(foundCharacter);
             context.SaveChanges();
