@@ -41,9 +41,10 @@ public class ModelService : ISharedService
     public bool Create(CreateRequest model)
     {
         // map model to new object
-        var target = _mapper.Map<DataModel>(model);
+        var target = _mapper.Map<DataModel>(model); // target is now an entity
 
         // manipulate data here
+        // get entity attributes through target.X
 
         // save to datacontext
         _context.DataModels.Add(target);
@@ -53,10 +54,10 @@ public class ModelService : ISharedService
     public bool Update(int id, UpdateRequest model)
     {
         var targetId = getModel(id);
-        //var target = _mapper.Map<DataModel>(model); 
-        var target = _mapper.Map(model, targetId);
-        
+        var target = _mapper.Map(model, targetId); // target is now an entity
+
         // manipulate data here
+        // get entity attributes through target.X
 
         // update
         _context.DataModels.Update(targetId);
