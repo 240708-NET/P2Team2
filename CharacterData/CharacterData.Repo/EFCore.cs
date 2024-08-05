@@ -122,8 +122,6 @@ namespace CharacterData.Repo
                     context.Characters.Find(x.id).name = x.name;
                     context.Characters.Find(x.id).level = x.level;
                     context.Characters.Find(x.id).experience = x.experience;
-                    context.Characters.Find(x.id).SetCharacterClassName(x.GetCharacterClassName());
-                    context.Characters.Find(x.id).SetArmorClass(x.GetArmorClass());
 
                     context.Characters.Find(x.id).str = x.str;
                     context.Characters.Find(x.id).dex = x.dex;
@@ -132,16 +130,6 @@ namespace CharacterData.Repo
                     context.Characters.Find(x.id).magicResist = x.magicResist;
 
                     context.Characters.Find(x.id).SetCurrentHitPoints(x.GetCurrentHitPoints());
-                    context.Characters.Find(x.id).SetCharacterClass(x.GetCharacterClass());
-
-                    context.Characters.Find(x.id).SetMagicAttackBonus(x.GetMagicAttackBonus());
-                    context.Characters.Find(x.id).SetMagicDamageBonus(x.GetMagicDamageBonus());
-
-                    context.Characters.Find(x.id).SetMeleeDamageBonus(x.GetMeleeDamageBonus());
-                    context.Characters.Find(x.id).SetMeleeAttackBonus(x.GetMeleeAttackBonus());
-
-                    context.Characters.Find(x.id).SetRangedAttackBonus(x.GetRangedAttackBonus());
-                    context.Characters.Find(x.id).SetRangedDamageBonus(x.GetRangedDamageBonus());
 
                     //context.Remove(context.Characters.Find(x.id).inventory);
                     //context.Characters.Find(x.id).inventory = x.inventory;
@@ -189,6 +177,7 @@ namespace CharacterData.Repo
             List<Character> characters = new List<Character>();
             foreach (var item in context.Characters.Select(c => new
             {
+                c.id,
                 c.name,
                 c.level,
                 c.experience,
@@ -203,6 +192,7 @@ namespace CharacterData.Repo
             {
                 Character character = new Character
                 {
+                    id = item.id,
                     name = item.name,
                     level = item.level,
                     experience = item.experience,
@@ -216,6 +206,10 @@ namespace CharacterData.Repo
                 };
                 characters.Add(character);
             }
+
+            foreach (var c in characters)
+                c.CharacterCalculations();
+
             return characters;
         }
 

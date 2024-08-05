@@ -305,6 +305,7 @@ namespace CharacterBuilder
             if (file.LoadAllCharacters() != null)
             {
                 characters = file.LoadAllCharacters();
+                UpdateCharacters();
                 ShowAvailableCharacters();
             }
             else

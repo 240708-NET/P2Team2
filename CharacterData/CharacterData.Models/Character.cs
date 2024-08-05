@@ -9,7 +9,7 @@ namespace CharacterData.Models
 
         //Character Properties from the Character class
         public int id { get; set; } // Unique identifier for the character
-        public string? name { get; set; } = ""; // Name of the character
+        public string name { get; set; } = ""; // Name of the character
         public int level { get; set; } = 1; // Level of the character
         public int experience { get; set; } = 0; // Experience points of the character
 
@@ -63,7 +63,13 @@ namespace CharacterData.Models
             this.wis = characterClass.wis;
             this.magic = characterClass.magic;
             this.magicResist = characterClass.magicResist;
+            
+            CharacterCalculations();
+            
+        }
 
+        public void CharacterCalculations()
+        {
             armorClass = (this.dex + this.str);
             maxHitPoints = (this.str + this.wis);
 
@@ -362,7 +368,7 @@ namespace CharacterData.Models
 
         public bool EquipItem(Item equipment)
         {
-            if(inventory.Contains(equipment) && equipment.isEquipped == false && equipment.itemType == "potion")
+            if(inventory.Contains(equipment) && equipment.isEquipped == false && equipment.typeOfItem == "potion")
             {
                 UpdateCharacterStats(equipment);
                 inventory.Remove(equipment);
