@@ -47,43 +47,23 @@ namespace CharacterData.Repo
             if (savedCharacter != null)
             {
                 // Update the character's name.
-                savedCharacter.name = modifiedCharacter.name;
+                context.Characters.Find(modifiedCharacter.id).name = modifiedCharacter.name;
 
                 // Update the character's level.
-                savedCharacter.level = modifiedCharacter.level;
+                context.Characters.Find(modifiedCharacter.id).level = modifiedCharacter.level;
 
                 // Update the character's experience points.
-                savedCharacter.experience = modifiedCharacter.experience;
-
-                // Update the character's class.
-                savedCharacter.SetCharacterClassName(modifiedCharacter.GetCharacterClassName());
-
-                // Update the character's armor class.
-                savedCharacter.SetArmorClass(modifiedCharacter.GetArmorClass());
+                context.Characters.Find(modifiedCharacter.id).experience = modifiedCharacter.experience;
 
                 // Update the character's ability scores.
-                savedCharacter.str = modifiedCharacter.str;
-                savedCharacter.dex = modifiedCharacter.dex;
-                savedCharacter.wis = modifiedCharacter.wis;
-                savedCharacter.magic = modifiedCharacter.magic;
-                savedCharacter.magicResist = modifiedCharacter.magicResist;
+                context.Characters.Find(modifiedCharacter.id).str = modifiedCharacter.str;
+                context.Characters.Find(modifiedCharacter.id).dex = modifiedCharacter.dex;
+                context.Characters.Find(modifiedCharacter.id).wis = modifiedCharacter.wis;
+                context.Characters.Find(modifiedCharacter.id).magic = modifiedCharacter.magic;
+                context.Characters.Find(modifiedCharacter.id).magicResist = modifiedCharacter.magicResist;
 
                 // Update the character's hit points.
-                savedCharacter.SetMaxHitPoints(modifiedCharacter.GetMaxHitPoints());
-                savedCharacter.SetCurrentHitPoints(modifiedCharacter.GetCurrentHitPoints());
-
-                // Update the character's character class.
-                savedCharacter.SetCharacterClass(modifiedCharacter.GetCharacterClass());
-
-                savedCharacter.SetMagicAttackBonus(modifiedCharacter.GetMagicAttackBonus());
-                savedCharacter.SetMagicDamageBonus(modifiedCharacter.GetMagicDamageBonus());
-
-                savedCharacter.SetMeleeDamageBonus(modifiedCharacter.GetMeleeDamageBonus());
-                savedCharacter.SetMeleeAttackBonus(modifiedCharacter.GetMeleeAttackBonus());
-
-                savedCharacter.SetRangedAttackBonus(modifiedCharacter.GetRangedAttackBonus());
-                savedCharacter.SetRangedDamageBonus(modifiedCharacter.GetRangedDamageBonus());
-
+                context.Characters.Find(modifiedCharacter.id).SetCurrentHitPoints(modifiedCharacter.GetCurrentHitPoints());
 
                 /*** NEEDS TO BE FIXED LATER ***/
                 //savedCharacter.inventory = modifiedCharacter.inventory;
