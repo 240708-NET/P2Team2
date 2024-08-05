@@ -19,5 +19,8 @@ public class DataContext : DbContext
         options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
     }
 
-    public DbSet<DataModel> DataModels { get; set; }
+    public DbSet<CharacterClass> CharacterClasses { get; set; }
+    public DbSet<Character> Characters { get; set; }
+    public DbSet<CharacterClassItem> CharacterClassItems {get; set;}
+    public DbSet<Item> Items {get; set;}
 }

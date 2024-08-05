@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NUgdnoLSFto=",
+  "dgSpecHash": "3oh3GE4Eg44=",
   "success": true,
-  "projectFilePath": "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\PfProj.csproj",
+  "projectFilePath": "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\PfProj.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\colto\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\colto\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",

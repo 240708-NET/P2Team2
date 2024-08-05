@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\PfProj.csproj": {}
+    "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\PfProj.csproj": {}
   },
   "projects": {
-    "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\PfProj.csproj": {
+    "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\PfProj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\PfProj.csproj",
+        "projectUniqueName": "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\PfProj.csproj",
         "projectName": "PfProj",
-        "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\PfProj.csproj",
+        "projectPath": "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\PfProj.csproj",
         "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\colto\\Documents\\GitHub\\ColtonTownsend\\PfProj\\obj\\",
+        "outputPath": "C:\\Users\\colto\\Documents\\Github\\P2Team2\\P2Team2-Skeleton_WEB_API\\PfProj\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config"

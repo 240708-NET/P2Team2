@@ -3,16 +3,41 @@ namespace PfProj.Services;
 using AutoMapper;
 using PfProj.Entities;
 using PfProj.Helpers;
-using PfProj.Models.DataModels;
+using PfProj.Models.CharacterClasses;
+using PfProj.Models.Characters;
+using PfProj.Models.CharacterClassItems;
+using PfProj.Models.Items;
 using Services;
 
 public interface ISharedService
 {
-    IEnumerable<DataModel> GetAll();
-    DataModel GetById(int id);
+    // Character Classes
+    IEnumerable<CharacterClass> GetAll();
+    CharacterClass GetById(int id);
     bool Create(CreateRequest model);
     bool Update(int id, UpdateRequest model);
     void Delete(int id);
+
+    // Characters
+    IEnumerable<Character> GetAllChar();
+    Character GetByIdChar(int id);
+    bool CreateChar(CreateRequestChar model);
+    bool UpdateChar(int id, UpdateRequestChar model);
+    void DeleteChar(int id);
+
+    // Class Items
+    IEnumerable<CharacterClassItem> GetAllClassItem();
+    CharacterClassItem GetByIdClassItem(int id);
+    bool CreateClassItem(CreateRequestClassItem model);
+    bool UpdateClassItem(int id, UpdateRequestClassItem model);
+    void DeleteClassItem(int id);
+
+    // Items
+    IEnumerable<Item> GetAllItem();
+    Item GetByIdItem(int id);
+    bool CreateItem(CreateRequestItem model);
+    bool UpdateItem(int id, UpdateRequestItem model);
+    void DeleteItem(int id);
 }
 
 public class ModelService : ISharedService
@@ -28,12 +53,12 @@ public class ModelService : ISharedService
         _mapper = mapper;
     }
 
-    public IEnumerable<DataModel> GetAll()
+    public IEnumerable<CharacterClass> GetAll()
     {
-        return _context.DataModels;
+        return _context.CharacterClasses;
     }
 
-    public DataModel GetById(int id)
+    public CharacterClass GetById(int id)
     {
         return getModel(id);
     }
@@ -41,13 +66,13 @@ public class ModelService : ISharedService
     public bool Create(CreateRequest model)
     {
         // map model to new object
-        var target = _mapper.Map<DataModel>(model); // target is now an entity
+        var target = _mapper.Map<CharacterClass>(model); // target is now an entity
 
         // manipulate data here
         // get entity attributes through target.X
 
         // save to datacontext
-        _context.DataModels.Add(target);
+        _context.CharacterClasses.Add(target);
         _context.SaveChanges();
         return true;
     }
@@ -60,7 +85,7 @@ public class ModelService : ISharedService
         // get entity attributes through target.X
 
         // update
-        _context.DataModels.Update(targetId);
+        _context.CharacterClasses.Update(targetId);
         _context.SaveChanges();
         return true;
     }
@@ -68,17 +93,181 @@ public class ModelService : ISharedService
     public void Delete(int id)
     {
         var target = getModel(id);
-        _context.DataModels.Remove(target);
+        _context.CharacterClasses.Remove(target);
         _context.SaveChanges();
     }
 
     // helper methods
 
-    private DataModel getModel(int id)
+    private CharacterClass getModel(int id)
     {
-        var target = _context.DataModels.Find(id);
+        var target = _context.CharacterClasses.Find(id);
         if (target == null) throw new KeyNotFoundException("ID not found");
             return target;
     }
 
+    // ***** CHAR *****
+
+    public IEnumerable<Character> GetAllChar()
+    {
+        return _context.Characters;
+    }
+
+    public Character GetByIdChar(int id)
+    {
+        return getModelChar(id);
+    }
+
+    public bool CreateChar(CreateRequestChar model)
+    {
+        // map model to new object
+        var target = _mapper.Map<Character>(model); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // save to datacontext
+        _context.Characters.Add(target);
+        _context.SaveChanges();
+        return true;
+    }
+    public bool UpdateChar(int id, UpdateRequestChar model)
+    {
+        var targetId = getModelChar(id);
+        var target = _mapper.Map(model, targetId); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // update
+        _context.Characters.Update(targetId);
+        _context.SaveChanges();
+        return true;
+    }
+
+    public void DeleteChar(int id)
+    {
+        var target = getModelChar(id);
+        _context.Characters.Remove(target);
+        _context.SaveChanges();
+    }
+
+    // helper methods
+
+    private Character getModelChar(int id)
+    {
+        var target = _context.Characters.Find(id);
+        if (target == null) throw new KeyNotFoundException("ID not found");
+            return target;
+    }
+
+    // ***** CHAR ITEM CLASS *****
+
+    public IEnumerable<CharacterClassItem> GetAllClassItem()
+    {
+        return _context.CharacterClassItems;
+    }
+
+    public CharacterClassItem GetByIdClassItem(int id)
+    {
+        return getModelClassItem(id);
+    }
+
+    public bool CreateClassItem(CreateRequestClassItem model)
+    {
+        // map model to new object
+        var target = _mapper.Map<CharacterClassItem>(model); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // save to datacontext
+        _context.CharacterClassItems.Add(target);
+        _context.SaveChanges();
+        return true;
+    }
+    public bool UpdateClassItem(int id, UpdateRequestClassItem model)
+    {
+        var targetId = getModelClassItem(id);
+        var target = _mapper.Map(model, targetId); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // update
+        _context.CharacterClassItems.Update(targetId);
+        _context.SaveChanges();
+        return true;
+    }
+
+    public void DeleteClassItem(int id)
+    {
+        var target = getModelClassItem(id);
+        _context.CharacterClassItems.Remove(target);
+        _context.SaveChanges();
+    }
+
+    // helper methods
+
+    private CharacterClassItem getModelClassItem(int id)
+    {
+        var target = _context.CharacterClassItems.Find(id);
+        if (target == null) throw new KeyNotFoundException("ID not found");
+            return target;
+    }
+
+    // ***** ITEM CLASS *****
+
+    public IEnumerable<Item> GetAllItem()
+    {
+        return _context.Items;
+    }
+
+    public Item GetByIdItem(int id)
+    {
+        return getModelItem(id);
+    }
+
+    public bool CreateItem(CreateRequestItem model)
+    {
+        // map model to new object
+        var target = _mapper.Map<Item>(model); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // save to datacontext
+        _context.Items.Add(target);
+        _context.SaveChanges();
+        return true;
+    }
+    public bool UpdateItem(int id, UpdateRequestItem model)
+    {
+        var targetId = getModelItem(id);
+        var target = _mapper.Map(model, targetId); // target is now an entity
+
+        // manipulate data here
+        // get entity attributes through target.X
+
+        // update
+        _context.Items.Update(targetId);
+        _context.SaveChanges();
+        return true;
+    }
+
+    public void DeleteItem(int id)
+    {
+        var target = getModelItem(id);
+        _context.Items.Remove(target);
+        _context.SaveChanges();
+    }
+
+    // helper methods
+
+    private Item getModelItem(int id)
+    {
+        var target = _context.Items.Find(id);
+        if (target == null) throw new KeyNotFoundException("ID not found");
+            return target;
+    }
 }
