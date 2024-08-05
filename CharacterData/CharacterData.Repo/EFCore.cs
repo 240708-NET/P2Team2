@@ -56,28 +56,34 @@ namespace CharacterData.Repo
                 savedCharacter.experience = modifiedCharacter.experience;
 
                 // Update the character's class.
-                savedCharacter.characterClassName = modifiedCharacter.characterClassName;
+                savedCharacter.SetCharacterClassName(modifiedCharacter.GetCharacterClassName());
 
                 // Update the character's armor class.
-                savedCharacter.armorClass = modifiedCharacter.armorClass;
+                savedCharacter.SetArmorClass(modifiedCharacter.GetArmorClass());
 
                 // Update the character's ability scores.
-                savedCharacter.abilityScores = modifiedCharacter.abilityScores;
+                savedCharacter.str = modifiedCharacter.str;
+                savedCharacter.dex = modifiedCharacter.dex;
+                savedCharacter.wis = modifiedCharacter.wis;
+                savedCharacter.magic = modifiedCharacter.magic;
+                savedCharacter.magicResist = modifiedCharacter.magicResist;
 
                 // Update the character's hit points.
-                savedCharacter.hitPoints = modifiedCharacter.hitPoints;
+                savedCharacter.SetMaxHitPoints(modifiedCharacter.GetMaxHitPoints());
+                savedCharacter.SetCurrentHitPoints(modifiedCharacter.GetCurrentHitPoints());
 
                 // Update the character's character class.
-                savedCharacter.characterClass = modifiedCharacter.characterClass;
+                savedCharacter.SetCharacterClass(modifiedCharacter.GetCharacterClass());
 
-                // Update the character's magic attack bonus.
-                savedCharacter.magicAttack = modifiedCharacter.magicAttack;
+                savedCharacter.SetMagicAttackBonus(modifiedCharacter.GetMagicAttackBonus());
+                savedCharacter.SetMagicDamageBonus(modifiedCharacter.GetMagicDamageBonus());
 
-                // Update the character's melee attack bonus.
-                savedCharacter.meleeAttack = modifiedCharacter.meleeAttack;
+                savedCharacter.SetMeleeDamageBonus(modifiedCharacter.GetMeleeDamageBonus());
+                savedCharacter.SetMeleeAttackBonus(modifiedCharacter.GetMeleeAttackBonus());
 
-                // Update the character's ranged attack bonus.
-                savedCharacter.rangedAttack = modifiedCharacter.rangedAttack;
+                savedCharacter.SetRangedAttackBonus(modifiedCharacter.GetRangedAttackBonus());
+                savedCharacter.SetRangedDamageBonus(modifiedCharacter.GetRangedDamageBonus());
+
 
                 /*** NEEDS TO BE FIXED LATER ***/
                 //savedCharacter.inventory = modifiedCharacter.inventory;
@@ -116,14 +122,26 @@ namespace CharacterData.Repo
                     context.Characters.Find(x.id).name = x.name;
                     context.Characters.Find(x.id).level = x.level;
                     context.Characters.Find(x.id).experience = x.experience;
-                    context.Characters.Find(x.id).characterClassName = x.characterClassName;
-                    context.Characters.Find(x.id).armorClass = x.armorClass;
-                    context.Characters.Find(x.id).abilityScores = x.abilityScores;
-                    context.Characters.Find(x.id).hitPoints = x.hitPoints;
-                    context.Characters.Find(x.id).characterClass = x.characterClass;
-                    context.Characters.Find(x.id).magicAttack = x.magicAttack;
-                    context.Characters.Find(x.id).meleeAttack = x.meleeAttack;
-                    context.Characters.Find(x.id).rangedAttack = x.rangedAttack;
+                    context.Characters.Find(x.id).SetCharacterClassName(x.GetCharacterClassName());
+                    context.Characters.Find(x.id).SetArmorClass(x.GetArmorClass());
+
+                    context.Characters.Find(x.id).str = x.str;
+                    context.Characters.Find(x.id).dex = x.dex;
+                    context.Characters.Find(x.id).wis = x.wis;
+                    context.Characters.Find(x.id).magic = x.magic;
+                    context.Characters.Find(x.id).magicResist = x.magicResist;
+
+                    context.Characters.Find(x.id).SetCurrentHitPoints(x.GetCurrentHitPoints());
+                    context.Characters.Find(x.id).SetCharacterClass(x.GetCharacterClass());
+
+                    context.Characters.Find(x.id).SetMagicAttackBonus(x.GetMagicAttackBonus());
+                    context.Characters.Find(x.id).SetMagicDamageBonus(x.GetMagicDamageBonus());
+
+                    context.Characters.Find(x.id).SetMeleeDamageBonus(x.GetMeleeDamageBonus());
+                    context.Characters.Find(x.id).SetMeleeAttackBonus(x.GetMeleeAttackBonus());
+
+                    context.Characters.Find(x.id).SetRangedAttackBonus(x.GetRangedAttackBonus());
+                    context.Characters.Find(x.id).SetRangedDamageBonus(x.GetRangedDamageBonus());
 
                     //context.Remove(context.Characters.Find(x.id).inventory);
                     //context.Characters.Find(x.id).inventory = x.inventory;
@@ -171,35 +189,29 @@ namespace CharacterData.Repo
             List<Character> characters = new List<Character>();
             foreach (var item in context.Characters.Select(c => new
             {
-                c.id,
                 c.name,
                 c.level,
                 c.experience,
-                c.characterClassName,
-                c.armorClass,
-                c.abilityScores,
-                c.hitPoints,
-                c.characterClass,
-                c.magicAttack,
-                c.meleeAttack,
-                c.rangedAttack,
+                c.str,
+                c.dex,
+                c.wis,
+                c.magic,
+                c.magicResist,
+                c.currentHitPoints,
                 c.inventory
             }))
             {
                 Character character = new Character
                 {
-                    id = item.id,
                     name = item.name,
                     level = item.level,
                     experience = item.experience,
-                    characterClassName = item.characterClassName,
-                    armorClass = item.armorClass,
-                    abilityScores = item.abilityScores,
-                    hitPoints = item.hitPoints,
-                    characterClass = item.characterClass,
-                    magicAttack = item.magicAttack,
-                    meleeAttack = item.meleeAttack,
-                    rangedAttack = item.rangedAttack,
+                    str = item.str,
+                    dex = item.dex,
+                    wis = item.wis,
+                    magic = item.magic,
+                    magicResist = item.magicResist,
+                    currentHitPoints = item.currentHitPoints,
                     inventory = item.inventory
                 };
                 characters.Add(character);

@@ -4,6 +4,7 @@ using CharacterData.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CharacterData.Repo.Migrations
 {
     [DbContext(typeof(CharacterContext))]
-    partial class CharacterContextModelSnapshot : ModelSnapshot
+    [Migration("20240805202400_InitialMigrationTest4")]
+    partial class InitialMigrationTest4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,15 +27,15 @@ namespace CharacterData.Repo.Migrations
 
             modelBuilder.Entity("CharacterClassItem", b =>
                 {
-                    b.Property<int>("characterClassid")
+                    b.Property<int>("characterClassIDid")
                         .HasColumnType("int");
 
-                    b.Property<int>("itemid")
+                    b.Property<int>("itemIDid")
                         .HasColumnType("int");
 
-                    b.HasKey("characterClassid", "itemid");
+                    b.HasKey("characterClassIDid", "itemIDid");
 
-                    b.HasIndex("itemid");
+                    b.HasIndex("itemIDid");
 
                     b.ToTable("CharacterClassItem");
                 });
@@ -214,13 +217,13 @@ namespace CharacterData.Repo.Migrations
                 {
                     b.HasOne("CharacterData.Models.CharacterClass", null)
                         .WithMany()
-                        .HasForeignKey("characterClassid")
+                        .HasForeignKey("characterClassIDid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CharacterData.Models.Item", null)
                         .WithMany()
-                        .HasForeignKey("itemid")
+                        .HasForeignKey("itemIDid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

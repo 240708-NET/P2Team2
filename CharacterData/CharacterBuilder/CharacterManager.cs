@@ -176,11 +176,11 @@ namespace CharacterBuilder
                             validSelection = true; // Selection is valid, break out of the loop
 
                             //Updating the character stats
-                            oldDex = characters[selection].abilityScores.dex;
-                            oldStr = characters[selection].abilityScores.str;
-                            oldWis = characters[selection].abilityScores.wis;
-                            oldMagic = characters[selection].abilityScores.magic;
-                            oldMagicResist = characters[selection].abilityScores.magicResist;
+                            oldDex = characters[selection].dex;
+                            oldStr = characters[selection].str;
+                            oldWis = characters[selection].wis;
+                            oldMagic = characters[selection].magic;
+                            oldMagicResist = characters[selection].magicResist;
 
                             // Create a temporary list containing the selected character
                             List<Character> tempList = new List<Character>();
@@ -223,43 +223,46 @@ namespace CharacterBuilder
         public void LevelUpUpdateStats(int index)
         {
             // Update armor class
-            characters[index].armorClass.AC = characters[index].armorClass.AC +
-                        ((characters[index].abilityScores.dex + characters[index].abilityScores.str) -
-                        (oldStr + oldDex));
+            characters[index].SetArmorClass(characters[index].GetArmorClass() +
+                        ((characters[index].dex + characters[index].str) -
+                        (oldStr + oldDex)));
 
             // Update hit points
-            characters[index].hitPoints.hitPoints = characters[index].hitPoints.hitPoints +
-                        ((characters[index].abilityScores.str + characters[index].abilityScores.wis) -
-                        (oldStr + oldWis));
+            characters[index].SetMaxHitPoints(characters[index].GetMaxHitPoints() +
+                        ((characters[index].str + characters[index].wis) -
+                        (oldStr + oldWis)));
+
+
+            
 
             // Update melee attack bonus and damage
-            characters[index].meleeAttack.meleeDamageBonus = characters[index].meleeAttack.meleeDamageBonus +
-                        ((characters[index].abilityScores.str - 10) -
-                        (oldStr - 10));
+            characters[index].SetMeleeDamageBonus( characters[index].GetMeleeDamageBonus() +
+                        ((characters[index].str - 10) -
+                        (oldStr - 10)));
 
-            characters[index].meleeAttack.meleeAttackBonus = characters[index].meleeAttack.meleeAttackBonus +
-                        (((characters[index].abilityScores.str - 10) + (characters[index].abilityScores.dex - 10)) -
-                        ((oldStr - 10) + (oldDex - 10)));
+            characters[index].SetMeleeAttackBonus(characters[index].GetMeleeAttackBonus() +
+                        (((characters[index].str - 10) + (characters[index].dex - 10)) -
+                        ((oldStr - 10) + (oldDex - 10))));
 
             // Update ranged attack bonus
-            characters[index].rangedAttack.rangedAttackBonus = characters[index].rangedAttack.rangedAttackBonus +
-                        (((characters[index].abilityScores.str - 10) + (characters[index].abilityScores.dex - 10)) -
-                        ((oldStr - 10) + (oldDex - 10)));
+            characters[index].SetRangedAttackBonus(characters[index].GetRangedAttackBonus() +
+                        (((characters[index].str - 10) + (characters[index].dex - 10)) -
+                        ((oldStr - 10) + (oldDex - 10))));
 
             // Update ranged attack damage
-            characters[index].rangedAttack.rangedDamageBonus = characters[index].rangedAttack.rangedDamageBonus +
-                        ((characters[index].abilityScores.dex - 10) -
-                        (oldDex - 10));
+            characters[index].SetRangedDamageBonus(characters[index].GetRangedDamageBonus() +
+                        ((characters[index].dex - 10) -
+                        (oldDex - 10)));
 
             // Update magic attack bonus
-            characters[index].magicAttack.magicAttackBonus = characters[index].magicAttack.magicAttackBonus +
-                        (((characters[index].abilityScores.wis - 10) + (characters[index].abilityScores.magic - 10)) -
-                        ((oldWis - 10) + (oldMagic - 10)));
+            characters[index].SetMagicAttackBonus(characters[index].GetMagicAttackBonus() +
+                        (((characters[index].wis - 10) + (characters[index].magic - 10)) -
+                        ((oldWis - 10) + (oldMagic - 10))));
 
             // Update magic attack damage
-            characters[index].magicAttack.magicDamageBonus = characters[index].magicAttack.magicDamageBonus +
-                        ((characters[index].abilityScores.magic - 10) -
-                        (oldMagic - 10));
+            characters[index].SetMagicDamageBonus(characters[index].GetMagicDamageBonus() +
+                        ((characters[index].magic - 10) -
+                        (oldMagic - 10)));
 
             // Update the character in the file
             file.UpdateCharacter(characters[index]);
@@ -281,7 +284,7 @@ namespace CharacterBuilder
                 for (int i = 0; i < characters.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {characters[i].name}");
-                    Console.WriteLine($"\t╚ {characters[i].characterClassName}: Level {characters[i].level}\n");
+                    Console.WriteLine($"\t╚ {characters[i].GetCharacterClassName()}: Level {characters[i].level}\n");
                 }
                 Console.WriteLine("---------------------"); // Add a separator line
             }
@@ -359,24 +362,24 @@ namespace CharacterBuilder
         public void CreateNewCharacter()
         {
             //Item as proof of concept for adding to inventory and equipping items
-            Item longsword = new Item()
-            {
-                name = "Broadsword",
-                description = "I am a longsword.",
-                kindOfWeapon = "melee",
-                weight = 10,
-                meleeDamageBonus = 5,
-                attackType = "Slashing",
-                typeOfDamage = "Physical",
-                strRequirement = 13,
-                dexRequirement = 13,
-                rightHandSlot = true,
-                leftHandSlot = true,
-            };
+            // Item longsword = new Item()
+            // {
+            //     name = "Broadsword",
+            //     description = "I am a longsword.",
+            //     kindOfWeapon = "melee",
+            //     weight = 10,
+            //     meleeDamageBonus = 5,
+            //     attackType = "Slashing",
+            //     typeOfDamage = "Physical",
+            //     strRequirement = 13,
+            //     dexRequirement = 13,
+            //     rightHandSlot = true,
+            //     leftHandSlot = true,
+            // };
 
-            CharacterClass newFighter = new Fighter();
-            CharacterClass newWizard = new Wizard();
-            CharacterClass newShadowWeaver = new ShadowWeaver();
+            CharacterClass newFighter = new CharacterClass("fighter", 3, 5, 1, 1, 5);
+            CharacterClass newWizard = new CharacterClass("wizard", 1, 1, 5, 5, 3);
+            CharacterClass newShadowWeaver = new CharacterClass("shadow weaver",5,1,3,5,1);
 
             // Prompt user for character details (name, class, etc.)
             Console.WriteLine("Great Choice! Let's Make Your Character!");
@@ -401,16 +404,16 @@ namespace CharacterBuilder
                 {
                     case "1":
                         newCharacter = new Character(newFighter);
-                        newCharacter.AddToInventory(longsword);
-                        newCharacter.EquipItem(longsword);
+                        //newCharacter.AddToInventory(longsword);
+                        //newCharacter.EquipItem(longsword);
                         newCharacter.name = name;
                         characters.Add(newCharacter);
                         validSelection = true;
                         break;
                     case "2":
                         newCharacter = new Character(newWizard);
-                        newCharacter.AddToInventory(longsword);
-                        newCharacter.EquipItem(longsword);
+                        //newCharacter.AddToInventory(longsword);
+                        //newCharacter.EquipItem(longsword);
                         newCharacter.name = name;
                         characters.Add(newCharacter);
                         validSelection = true;
@@ -636,32 +639,32 @@ namespace CharacterBuilder
             Console.Clear();
 
             //Message for the User
-            Console.WriteLine($"{newCharacter.armorClass.AC}'s Character Sheet:");
+            Console.WriteLine($"{newCharacter.GetArmorClass()}'s Character Sheet:");
 
             string characterSheet =
                 "╔═════════════════════════════════════════════════╗\n" +
                 "║                Character Sheet                  ║\n" +
                 "╠═════════════════════════════════════════════════╣\n" +
-                $"║ Name: {newCharacter.name}         Class: {newCharacter.characterClassName}       ║\n" +
+                $"║ Name: {newCharacter.name}         Class: {newCharacter.GetCharacterClassName()}       ║\n" +
                 $"║ Level: {newCharacter.level}                   XP: {newCharacter.experience}                ║\n" +
                 "╠═════════════════════════════════════════════════╣\n" +
-                $"║  - HP: {newCharacter.hitPoints.hitPoints}                                       ║\n" +
-                $"║  - AC: {newCharacter.armorClass.AC}                                       ║\n" +
+                $"║  - HP: {newCharacter.GetMaxHitPoints()}                                       ║\n" +
+                $"║  - AC: {newCharacter.GetArmorClass()}                                       ║\n" +
                 "╠═════════════════════════════════════════════════╣\n" +
                 "║                Ability Scores                   ║\n" +
-                $"║  - Str: {newCharacter.abilityScores.str}                    - Magic: {newCharacter.abilityScores.magic}       ║\n" +
-                $"║  - Dex: {newCharacter.abilityScores.dex}                    - Magic Res: {newCharacter.abilityScores.magicResist}   ║\n" +
-                $"║  - Wis: {newCharacter.abilityScores.wis}                                      ║\n" +
+                $"║  - Str: {newCharacter.str}                    - Magic: {newCharacter.magic}       ║\n" +
+                $"║  - Dex: {newCharacter.dex}                    - Magic Res: {newCharacter.magicResist}   ║\n" +
+                $"║  - Wis: {newCharacter.wis}                                      ║\n" +
                 "╠═════════════════════════════════════════════════╣\n" +
                 "║                  Attack Bonuses                 ║\n" +
-                $"║  - Melee Attack Bonus:  +{newCharacter.meleeAttack.meleeAttackBonus}                      ║\n" +
-                $"║  - Melee Damage Bonus:  +{newCharacter.meleeAttack.meleeDamageBonus}                      ║\n" +
+                $"║  - Melee Attack Bonus:  +{newCharacter.GetMeleeAttackBonus()}                      ║\n" +
+                $"║  - Melee Damage Bonus:  +{newCharacter.GetMeleeDamageBonus()}                      ║\n" +
                 $"║-------------------------------------------------║\n" +
-                $"║  - Ranged Attack Bonus: +{newCharacter.rangedAttack.rangedAttackBonus}                      ║\n" +
-                $"║  - Ranged Damage Bonus: +{newCharacter.rangedAttack.rangedDamageBonus}                      ║\n" +
+                $"║  - Ranged Attack Bonus: +{newCharacter.GetRangedAttackBonus()}                      ║\n" +
+                $"║  - Ranged Damage Bonus: +{newCharacter.GetRangedDamageBonus()}                      ║\n" +
                 $"║-------------------------------------------------║\n" +
-                $"║  - Magic Attack Bonus:  +{newCharacter.magicAttack.magicAttackBonus}                      ║\n" +
-                $"║  - Magic Damage Bonus:  +{newCharacter.magicAttack.magicDamageBonus}                      ║\n" +
+                $"║  - Magic Attack Bonus:  +{newCharacter.GetMagicAttackBonus()}                      ║\n" +
+                $"║  - Magic Damage Bonus:  +{newCharacter.GetMeleeDamageBonus()}                      ║\n" +
                 "╠═════════════════════════════════════════════════╣\n" +
                 "║                  Equipped Items                 ║\n" +
                 $"║   {equippedDisplay}                                                  ║ \n" +

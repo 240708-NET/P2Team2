@@ -7,63 +7,33 @@ namespace CharacterData.Models
 {
     public class Item
     {
+        public List<CharacterClass> characterClass { get; set; }
+        //public int characterClassId { get; set; }
+
         public int id { get; set; } // The item PK in the DB
         public string name { get; set; } // The name of the item
         public double weight { get; set; } // The weight of the item
         public int value {get;set;} // The gold value of the item
         public string typeOfItem { get; set; } // The type of item (melee weapon, ranged weapon, armor, consumable, misc)
         // ^^^ New value used for kindOfWeapon and kindOfArmor (deprecated)
-        public string? slotType { get; set; } // The slot that the item is able to be equipped in (head, chest, arms, rightHand, leftHand, twoHanded, legs, ring)
+        public string slotType { get; set; } = "None"; // The slot that the item is able to be equipped in (head, chest, arms, rightHand, leftHand, twoHanded, legs, ring)
         public bool isEquipped {get; set;} = false;
-        public string? description { get; set; } = "No Description Given"; // The description of the equipment
-        public int? maxHitPointBonus { get; set; } = 0; 
-        public int? currentHitPointBonus { get; set; } = 0;
-        public int? meleeDamageBonus { get; set; } = 0;
-        public int? rangedDamageBonus { get; set; } = 0;
-        public int? magicDamageBonus { get; set; } = 0;
-        public int? meleeAttackBonus { get; set; } = 0;
-        public int? rangedAttackBonus { get; set; } = 0;
-        public int? magicAttackBonus { get; set; } = 0;
-        public int? armorClassBonus { get; set; } = 0;
-        public string? attackType { get; set; } = "No Attack Type Given"; // The type of attack (slashing, piercing, bludgeoning)
-        public string? typeOfDamage { get; set; } = "No Damage Type Given"; // The type of damage (physical, magical, necrotic)
-        public int? strRequirement { get; set; } = 0;
-        public int? dexRequirement { get; set; } = 0;
-        public int? wisRequirement { get; set; } = 0;
-        public int? magicRequirement { get; set; } = 0;
-
-
-        // public string whatIsSlot()
-        // {
-        //     if (leftHandSlot.HasValue && leftHandSlot.Value == true && rightHandSlot.HasValue && rightHandSlot.Value == true)
-        //         return "two-handed";
-
-        //     if (headSlot.HasValue && headSlot.Value == true)
-        //         return "head";
-
-        //     if (chestSlot.HasValue && chestSlot.Value == true)
-        //         return "chest";
-
-        //     if (armsSlot.HasValue && armsSlot.Value == true)
-        //         return "arms";
-
-        //     if (legsSlot.HasValue && legsSlot.Value == true)
-        //         return "legs";
-
-        //     if (leftHandSlot.HasValue && leftHandSlot.Value == true)
-        //         return "left hand";
-
-        //     if (rightHandSlot.HasValue && rightHandSlot.Value == true)
-        //         return "right hand";
-
-        //     if (necklaceSlot.HasValue && necklaceSlot.Value == true)
-        //         return "necklace";
-
-        //     if (ringSlot.HasValue && ringSlot.Value == true)
-        //         return "ring";
-
-        //     return "None"; // Add a default case to return "None" if no slot is active
-        // }
+        public string description { get; set; } = "No Description Given"; // The description of the equipment
+        public int maxHitPointBonus { get; set; } = 0; 
+        public int currentHitPointBonus { get; set; } = 0;
+        public int meleeDamageBonus { get; set; } = 0;
+        public int rangedDamageBonus { get; set; } = 0;
+        public int magicDamageBonus { get; set; } = 0;
+        public int meleeAttackBonus { get; set; } = 0;
+        public int rangedAttackBonus { get; set; } = 0;
+        public int magicAttackBonus { get; set; } = 0;
+        public int armorClassBonus { get; set; } = 0;
+        public string attackType { get; set; } = "No Attack Type Given"; // The type of attack (slashing, piercing, bludgeoning)
+        public string typeOfDamage { get; set; } = "No Damage Type Given"; // The type of damage (physical, magical, necrotic)
+        public int strRequirement { get; set; } = 0;
+        public int dexRequirement { get; set; } = 0;
+        public int wisRequirement { get; set; } = 0;
+        public int magicRequirement { get; set; } = 0;
 
         /*Extra Item To Implement At A Later Date
                 public Item greatsword = new Item(){
@@ -78,8 +48,6 @@ namespace CharacterData.Models
                     dexRequirement = 15,
                     rightHandSlot = true,
                     leftHandSlot = true,
-
-
                 };
 
                 public Item shortsword = new Item(){

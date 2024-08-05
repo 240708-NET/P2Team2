@@ -12,19 +12,24 @@ namespace CharacterData.Models
         public string? name { get; set; } = ""; // Name of the character
         public int level { get; set; } = 1; // Level of the character
         public int experience { get; set; } = 0; // Experience points of the character
-        public string characterClassName { get; set; } = ""; // Class of the character
+
+
+        private string characterClassName = ""; // Class of the character
+
+
         public int currentHitPoints {get; set;} = 0; // Current hit points for the character
         private int maxHitPoints {get; set;} = 0; // Max hit points for the character
         private int armorClass {get; set;} = 0; // Armor class for the character
+
         public int gold { get; set; } = 0; // Gold of the character   
 
         //Ability Scores
-        private int baseScore = 10;
-        public int str {get; set;} = baseScore;
-        public int dex {get; set;} = baseScore;
-        public int wis {get; set;} = baseScore;
-        public int magic {get; set;} = baseScore;
-        public int magicResist {get; set;} = baseScore;
+        //private int baseScore = 10;
+        public int str {get; set;} = 10;
+        public int dex {get; set;} = 10;
+        public int wis {get; set;} = 10;
+        public int magic {get; set;} = 10;
+        public int magicResist {get; set;} = 10;
 
         //Attack Bonusses and Damage Bonuses
         private int meleeAttackBonus {get; set;} = 0;
@@ -35,9 +40,12 @@ namespace CharacterData.Models
         private int magicDamageBonus {get; set;} = 0;
         
         //Character properties from other classes
-        private CharacterClass? characterClass { get; set; }
+        public CharacterClass characterClass { get; set; }
 
         public Character() { }
+
+
+        
 
         public Character(CharacterClass newCharacterClass)
         {
@@ -337,13 +345,35 @@ namespace CharacterData.Models
             inventory.Remove(equipment);
         }
 
+        public void PurchaseItem(Item product)
+        {
+            AddToInventory(product);
+            gold -= product.value;
+        }
+
+        public Item SellItem(Item product){
+            if(inventory.Contains(product)){
+                RemoveFromInventory(product);
+                gold += product.value;
+                return product;
+            }
+            return null;
+        }
+
         public bool EquipItem(Item equipment)
         {
+            if(inventory.Contains(equipment) && equipment.isEquipped == false && equipment.itemType == "potion")
+            {
+                UpdateCharacterStats(equipment);
+                inventory.Remove(equipment);
+                return true;
+            }
+
             if (inventory.Contains(equipment) && equipment.isEquipped == false)
             {
                 foreach (Item p in inventory)
                 {
-                    if (p.whatIsSlot() == equipment.whatIsSlot())
+                    if (p.slotType == equipment.slotType)
                     {
                         UnequipItem( inventory[ inventory.IndexOf(p) ] );
                         inventory[ inventory.IndexOf(p) ].isEquipped = true;
@@ -388,7 +418,7 @@ namespace CharacterData.Models
             // Update character stats based on equipment bonuses/penalties
             if (isEquipping)
             {
-                armorClass.AC += equipment.armorClassBonus;
+                this.armorClass += equipment.armorClassBonus;
 
                 this.meleeAttackBonus += equipment.meleeAttackBonus;
 
@@ -408,7 +438,7 @@ namespace CharacterData.Models
             }
             else
             {
-                armorClass.AC -= equipment.armorClassBonus;
+                this.armorClass -= equipment.armorClassBonus;
 
                 this.meleeAttackBonus -= equipment.meleeAttackBonus;
 
@@ -447,7 +477,7 @@ namespace CharacterData.Models
     $"║ Level: {this.level}                   XP: {this.experience}                ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
     $"║  - Max HP: {this.maxHitPoints}                                       ║\n" +
-    $"║  - AC: {this.armorClass.AC}                                       ║\n" +
+    $"║  - AC: {this.armorClass}                                       ║\n" +
     "╠═════════════════════════════════════════════════╣\n" +
     "║                Ability Scores                   ║\n" +
     $"║  - Str: {this.str}                    - Magic: {this.magic}       ║\n" +
@@ -475,5 +505,30 @@ namespace CharacterData.Models
 ;
             Console.WriteLine(characterSheet);
         }
+
+
+    public int GetMaxHitPoints(){return maxHitPoints;}
+    public int GetCurrentHitPoints(){return currentHitPoints;}
+    public int GetArmorClass(){return armorClass;}
+    public int GetMagicAttackBonus(){return magicAttackBonus;}
+    public int GetMagicDamageBonus(){return magicDamageBonus;}
+    public int GetRangedAttackBonus(){return rangedAttackBonus;}
+    public int GetRangedDamageBonus(){return rangedDamageBonus;}
+    public int GetMeleeAttackBonus(){return meleeAttackBonus;}
+    public int GetMeleeDamageBonus(){return meleeDamageBonus;}
+    public CharacterClass GetCharacterClass(){return characterClass;}
+    public string GetCharacterClassName(){return characterClassName;}
+
+    public void SetMaxHitPoints(int value){maxHitPoints = value;}
+    public void SetCurrentHitPoints(int value){currentHitPoints = value;}
+    public void SetArmorClass(int value){armorClass = value;}
+    public void SetMagicAttackBonus(int value){magicAttackBonus = value;}
+    public void SetMagicDamageBonus(int value){magicDamageBonus = value;}
+    public void SetRangedAttackBonus(int value){rangedAttackBonus = value;}
+    public void SetRangedDamageBonus(int value){rangedDamageBonus = value;}
+    public void SetMeleeAttackBonus(int value){meleeAttackBonus = value;}
+    public void SetMeleeDamageBonus(int value){meleeDamageBonus = value;}
+    public void SetCharacterClass(CharacterClass value){characterClass = value;}
+    public void SetCharacterClassName(string value){characterClassName = value;}
     }
 }

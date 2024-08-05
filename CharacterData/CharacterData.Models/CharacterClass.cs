@@ -2,14 +2,19 @@ namespace CharacterData.Models
 {
     public class CharacterClass
     {
+        public int id { get; set; }
+        public List<Item> item { get; set; }
+
         public string className { get; set; }
-        public int dex { get; set; }
-        public int str { get; set; }
-        public int wis { get; set; }
-        public int magic { get; set; }
-        public int magicResist { get; set; }
+        public int dex { get; set; } = 0;
+        public int str { get; set; } = 0;
+        public int wis { get; set; } = 0;
+        public int magic { get; set; } = 0;
+        public int magicResist { get; set; } = 0;
 
         public int baseScore {get; set;} = 10;
+
+        public CharacterClass(){}
 
         // Examples:
         // "Fighter", 3, 5, 1, 1, 5
