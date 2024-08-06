@@ -1,0 +1,45 @@
+/*
+body{
+    background-color: rgb(208, 229, 238);
+    display: flex;
+    width: 50%;
+    font-size: 20pt;
+    color: white;
+    justify-content: space-between left;
+    align-items: left;
+    padding: 10px;
+
+    border: rgb(255, 0, 0);
+}
+*/
+
+.container{
+    display: flex;
+
+    border-width: 5px;
+    border-color: red;
+}
+
+#column{
+    width: 50%;
+
+    border-width: 5px;
+    border-color: blue;
+}
+
+#column p{
+    display: flex;
+    justify-content: left;
+
+    border-width: 5px;
+    border-color: yellow;
+}
+
+#ul button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 5px;
+    /*border-width: 5px;
+    border-color: green;*/
+}
