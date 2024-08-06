@@ -1,3 +1,4 @@
+    // GET METHOD
     async function get(event, tableName){ // returns a promise
         return new Promise(function (resolve, reject) {
             if (event)
@@ -17,7 +18,7 @@
             });
         })
     }
-
+    // POST METHOD
     async function post(event, tableName, ourBody){ // returns a promise
         return new Promise(function (resolve, reject) {
             if (event)
@@ -40,7 +41,115 @@
             });
         })
     }
+    // PUT METHOD (By ID)
+    async function putByID(event, tableName, id, ourBody){ // returns a promise
+        return new Promise(function (resolve, reject) {
+            if (event)
+                event.preventDefault();
+            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
+            fetch(loginURL, {method: 'PUT', 
+                headers:{'Content-Type':'application/json'},
+                body: ourBody // json in calling method
+            })
+            .then(result => { 
+                return result.json(); 
+            })
+            .then((result) => {
+                console.log('in response: ', result);
+                return resolve(result);
+            })
+            .catch(error => {
+                console.log('error: ', error)
+                return reject(error);
+            });
+        })
+    }
+    // PUT METHOD (By Name)
+    async function putByName(event, tableName, name, ourBody){ // returns a promise
+        return new Promise(async function (resolve, reject) {
+            if (event)
+                event.preventDefault();
+            var id = await nameToID(tableName, name);
+            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
+            fetch(loginURL, {method: 'PUT', 
+                headers:{'Content-Type':'application/json'},
+                body: ourBody // json in calling method
+            })
+            .then(result => { 
+                return result.json(); 
+            })
+            .then((result) => {
+                console.log('in response: ', result);
+                return resolve(result);
+            })
+            .catch(error => {
+                console.log('error: ', error)
+                return reject(error);
+            });
+        })
+    }
+
+    // DELETE METHOD (By ID)
+    async function deleteByID(event, tableName, id){ // returns a promise
+        return new Promise(function (resolve, reject) {
+            if (event)
+                event.preventDefault();
+            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
+            fetch(loginURL, {method: 'DELETE', 
+                headers:{'Content-Type':'application/json'}
+            })
+            .then(result => { 
+                return result.json(); 
+            })
+            .then((result) => {
+                console.log('in response: ', result);
+                return resolve(result);
+            })
+            .catch(error => {
+                console.log('error: ', error)
+                return reject(error);
+            });
+        })
+    }
+
+    // DELETE METHOD (By Name)
+    async function deleteByName(event, tableName, name){ // returns a promise
+        return new Promise(async function (resolve, reject) {
+            if (event)
+                event.preventDefault();
+            var id = await nameToID(tableName, name);
+            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
+            fetch(loginURL, {method: 'DELETE', 
+                headers:{'Content-Type':'application/json'}
+            })
+            .then(result => { 
+                return result.json(); 
+            })
+            .then((result) => {
+                console.log('in response: ', result);
+                return resolve(result);
+            })
+            .catch(error => {
+                console.log('error: ', error)
+                return reject(error);
+            });
+        })
+    }
     
+    // Helper Method
+    async function nameToID(tablename, name){ // returns ID of name in tablename
+        let names = []
+        await get(event, tablename).then(async response => {
+            for(var i = 0; i < response.length; i++){
+                if (response[i].name == name)
+                    return response[i].id;
+            }
+        })
+    }
+
+
+    // Start of DB verification functionality (Appending default values to DB)
+
     function verifyDB(){ // appends default entries to DB
         verifyItems();
         verifyClasses();

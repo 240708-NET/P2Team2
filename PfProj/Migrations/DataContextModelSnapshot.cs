@@ -85,19 +85,19 @@ namespace PfProj.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("dex")
+                    b.Property<int?>("dex")
                         .HasColumnType("int");
 
-                    b.Property<int>("magic")
+                    b.Property<int?>("magic")
                         .HasColumnType("int");
 
-                    b.Property<int>("magicResist")
+                    b.Property<int?>("magicResist")
                         .HasColumnType("int");
 
-                    b.Property<int>("str")
+                    b.Property<int?>("str")
                         .HasColumnType("int");
 
-                    b.Property<int>("wis")
+                    b.Property<int?>("wis")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

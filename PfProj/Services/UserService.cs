@@ -7,7 +7,7 @@ using PfProj.Models.CharacterClasses;
 using PfProj.Models.Characters;
 using PfProj.Models.CharacterClassItems;
 using PfProj.Models.Items;
-using Services;
+using Microsoft.AspNetCore.Mvc;
 
 public interface ISharedService
 {
@@ -52,7 +52,7 @@ public class ModelService : ISharedService
         _context = context;
         _mapper = mapper;
     }
-
+    // ***** CHAR CLASS *****
     public IEnumerable<CharacterClass> GetAll()
     {
         return _context.CharacterClasses;
@@ -254,7 +254,7 @@ public class ModelService : ISharedService
         _context.SaveChanges();
         return true;
     }
-
+    [HttpDelete]
     public void DeleteItem(int id)
     {
         var target = getModelItem(id);
