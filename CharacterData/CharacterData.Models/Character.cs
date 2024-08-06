@@ -13,9 +13,7 @@ namespace CharacterData.Models
         public int level { get; set; } = 1; // Level of the character
         public int experience { get; set; } = 0; // Experience points of the character
 
-
         private string characterClassName = ""; // Class of the character
-
 
         public int currentHitPoints {get; set;} = 0; // Current hit points for the character
         private int maxHitPoints {get; set;} = 0; // Max hit points for the character
@@ -44,9 +42,6 @@ namespace CharacterData.Models
 
         public Character() { }
 
-
-        
-
         public Character(CharacterClass newCharacterClass)
         {
             this.characterClass = newCharacterClass;
@@ -63,9 +58,8 @@ namespace CharacterData.Models
             this.wis = characterClass.wis;
             this.magic = characterClass.magic;
             this.magicResist = characterClass.magicResist;
-            
+
             CharacterCalculations();
-            
         }
 
         public void CharacterCalculations()
@@ -375,7 +369,7 @@ namespace CharacterData.Models
                 return true;
             }
 
-            if (inventory.Contains(equipment) && equipment.isEquipped == false)
+            if (inventory.Contains(equipment) && equipment.isEquipped == false && CanEquip(equipment))
             {
                 foreach (Item p in inventory)
                 {
@@ -408,14 +402,23 @@ namespace CharacterData.Models
             }
             return false;
         }
-
-        
         //NEED TO IMPLEMENT EVENTUALLY
-        // private bool CanEquip(Item equipment) // Replace with actual logic for character checks
-        // {
-        //     // Implement checks based on character class, stats, etc.
-        //     return true; // Replace with actual implementation
-        // }
+        public bool CanEquip(Item equipment) // Replace with actual logic for character checks
+        {
+            // Implement checks based on character class, stats, etc.
+            if(this.str < equipment.strRequirement)
+                return false;
+            else if(this.dex < equipment.dexRequirement)
+                return false;
+            else if(this.wis < equipment.wisRequirement)
+                return false;
+            else if(this.magic < equipment.magicRequirement)
+                return false;
+            else if(!equipment.characterClass.Contains(this.characterClass))
+                return false;
+            else
+                return true;
+        }
 
         public void UpdateCharacterStats(Item equipment, bool isEquipping = true)
         {

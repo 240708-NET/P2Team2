@@ -9,6 +9,10 @@ namespace CharacterBuilder
 {
     public class Program
     {
+        public static CharacterClass newFighter = new CharacterClass("fighter", 3, 5, 1, 1, 5);
+        public static  CharacterClass newWizard = new CharacterClass("wizard", 3, 5, 1, 1, 5);
+        public static CharacterClass newShadowWeaver = new CharacterClass("shadow weaver", 3, 5, 1, 1, 5);
+
       /*  public static Character CreateCharacter(Character newCharacter)
         {
             using (var context = new CharacterContext())
@@ -30,8 +34,129 @@ namespace CharacterBuilder
         {
             string path = @"./Characters.txt";
 
+            string filePath = @"./ItemBuildList.txt";
+
+            SaveAllItems(CreateItems(5, 3, "Greatsword", filePath, "melee weapon", 10, "two handed", "slashing", "physical"), filePath, false);
+
             CharacterManager manager = new CharacterManager(path);
             manager.RunCharacterMenu();
-        }   
+        }
+
+        public static void SaveAllItems(List<Item> itemList, string filePath, bool append)
+        {
+            TextWriter writer = null;
+            try
+            {
+                var contentsToWriteToFile = JsonConvert.SerializeObject(itemList);
+                writer = new StreamWriter(filePath, append);
+                writer.Write(contentsToWriteToFile);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }
+        }
+
+        public static List<Item> LoadAllItems(string filePath)
+        {
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader(filePath);
+                var fileContents = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<List<Item>>(fileContents);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+        }
+
+        public static List<Item> CreateItems(int itemLevel, int howMany, string itemName, string filePath, string typeOfItem, int weight, string slotType, string attackType, string typeOfDamage)
+        {
+            List<Item> randomizedItems = new List<Item>();
+
+            randomizedItems = LoadAllItems(filePath);
+
+            Random random = new Random();
+
+            int upperboundDamage = 2;
+            int upperboundAttack = 5;
+            int upperBoundAC = 2;
+            int upperBoundHP = 5;
+
+            int valueAppraisal = 50 + 10*(itemLevel-1);
+
+            int attackBonusRandom = random.Next(1, itemLevel+upperboundAttack);
+            int damageBonusRandom = random.Next(1, itemLevel+upperboundDamage);
+            int ACBonus = random.Next(1, itemLevel+upperBoundAC);
+            int currentHPBonus = random.Next(1, itemLevel+upperBoundHP);
+
+            for(int i = 0; i < howMany; i++)
+            {
+                //Equipment as proof of concept for adding to inventory and equipping items
+                List<CharacterClass> c = new List<CharacterClass>();
+                c.Add(newFighter);
+
+                attackBonusRandom = random.Next(1, itemLevel+upperboundAttack);
+                damageBonusRandom = random.Next(1, itemLevel+upperboundDamage);
+
+                Item newItem = new Item()
+                {
+                    name = $"{itemName} +Lvl.{itemLevel}",
+
+                    characterClass= c,
+
+                    level = itemLevel,
+
+                    weight = weight,
+
+                    value = valueAppraisal,
+
+                    typeOfItem = typeOfItem,
+
+                    slotType = slotType,
+
+                    isEquipped = false,
+
+                    description = $"I am a {itemName}.",
+
+                    maxHitPointBonus = itemLevel-1,
+
+                    currentHitPointBonus = (typeOfItem.ToLower() == "potion") ? currentHPBonus : 0,
+
+                    meleeDamageBonus = (typeOfItem.ToLower() == "melee weapon") ? damageBonusRandom : 0,
+
+                    rangedDamageBonus = (typeOfItem.ToLower() == "ranged weapon") ? damageBonusRandom : 0,
+
+                    magicDamageBonus = (typeOfItem.ToLower() == "magic weapon") ? damageBonusRandom : 0,
+
+                    meleeAttackBonus = (typeOfItem.ToLower() == "melee weapon") ? attackBonusRandom :0,
+
+                    rangedAttackBonus = (typeOfItem.ToLower() == "ranged weapon") ? attackBonusRandom :0,
+
+                    magicAttackBonus = (typeOfItem.ToLower() == "magic weapon") ? attackBonusRandom :0,
+
+                    armorClassBonus = (typeOfItem.ToLower() == "armor") ? ACBonus :0,
+
+                    attackType = attackType,
+
+                    typeOfDamage = typeOfDamage,
+
+                    strRequirement = (typeOfItem.ToLower() == "melee weapon") ? 15+3*(itemLevel-1): 0,
+
+                    dexRequirement = (typeOfItem.ToLower() == "ranged weapon") ? 15+3*(itemLevel-1): 0,
+
+                    wisRequirement = (typeOfItem.ToLower() == "magic weapon") ?  15+3*(itemLevel-1): 0,
+
+                    magicRequirement = (typeOfItem.ToLower() == "magic weapon") ?  15+3*(itemLevel-1): 0,
+                };
+                randomizedItems.Add(newItem);
+            }
+
+            return randomizedItems;
+        }  
     }
 }

@@ -65,6 +65,8 @@ namespace CharacterData.Repo
                 // Update the character's hit points.
                 context.Characters.Find(modifiedCharacter.id).SetCurrentHitPoints(modifiedCharacter.GetCurrentHitPoints());
 
+                context.Characters.Find(modifiedCharacter.id).gold = modifiedCharacter.gold;
+
                 /*** NEEDS TO BE FIXED LATER ***/
                 //savedCharacter.inventory = modifiedCharacter.inventory;
 
@@ -110,6 +112,8 @@ namespace CharacterData.Repo
                     context.Characters.Find(x.id).magicResist = x.magicResist;
 
                     context.Characters.Find(x.id).SetCurrentHitPoints(x.GetCurrentHitPoints());
+
+                    context.Characters.Find(x.id).gold = x.gold;
 
                     //context.Remove(context.Characters.Find(x.id).inventory);
                     //context.Characters.Find(x.id).inventory = x.inventory;
@@ -167,6 +171,7 @@ namespace CharacterData.Repo
                 c.magic,
                 c.magicResist,
                 c.currentHitPoints,
+                c.gold,
                 c.inventory
             }))
             {
@@ -182,6 +187,7 @@ namespace CharacterData.Repo
                     magic = item.magic,
                     magicResist = item.magicResist,
                     currentHitPoints = item.currentHitPoints,
+                    gold = item.gold,
                     inventory = item.inventory
                 };
                 characters.Add(character);
