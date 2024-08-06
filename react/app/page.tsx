@@ -1,7 +1,5 @@
 import Image from "next/image";
 import {NavBar} from "./components/NavBar";
-import {ColumnLeft} from "./components/ColumnLeft";
-import {ColumnRight} from "./components/ColumnRight";
 import BodyStyle from "./styles/BodyStyle.module.css";
 
 export default function Home() {
@@ -9,8 +7,17 @@ export default function Home() {
     <main id="main">
       <NavBar></NavBar>
       <div className={BodyStyle.container}>
-        <ColumnLeft></ColumnLeft>
-        <ColumnRight></ColumnRight>
+        <div id={BodyStyle.column}>
+          <p>This is the left column</p>
+        </div>
+        <div id={BodyStyle.column}>
+          <p>This is the right column</p>
+          <p>Options:</p>
+          <ul id={BodyStyle.ul}>
+              <li><button>create character</button></li>
+              <li><button>shop</button></li>
+          </ul>
+        </div>
       </div>
     </main>
   );
