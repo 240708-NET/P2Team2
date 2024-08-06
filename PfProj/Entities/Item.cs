@@ -6,7 +6,7 @@ public class Item
 {
     public int Id { get; set; }
     // Required Input
-     public required string name { get; set; } // The name of the item
+    public required string name { get; set; } // The name of the item
     public required double weight { get; set; } // The weight of the item
     public required int value {get;set;} // The gold value of the item
     public required string typeOfItem { get; set; } // The type of item (melee weapon, ranged weapon, armor, consumable, misc)
@@ -14,7 +14,7 @@ public class Item
 
     // Optional Input
     public string? slotType { get; set; } // The slot that the item is able to be equipped in (head, chest, arms, rightHand, leftHand, twoHanded, legs, ring)
-    public bool isEquipped {get; set;} = false;
+    public bool? isEquipped {get; set;} = false;
     public string? description { get; set; } = "No Description Given"; // The description of the equipment
     public int? maxHitPointBonus { get; set; } = 0; 
     public int? currentHitPointBonus { get; set; } = 0;

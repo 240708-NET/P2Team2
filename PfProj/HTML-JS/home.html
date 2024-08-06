@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<title>Web API</title>
+	</head>
+	<body>
+		<!-- Verify DB Button -->
+		<button onclick="verifyDB()", id="dbbutton", class="button button1">Verify DB</button>
+
+		<center>
+			<h2>P2 Web API</h2>
+
+			<form id="form">
+				<!-- Title -->
+				<h2>Character Creation</h2>
+				<p>Name</p>
+				<!-- Text Area-->
+				<textarea id="textarea"></textarea>
+				<br />
+				<!-- Radio Buttons -->
+				<p>
+					Class:
+					<label>
+					  <input type="radio" name="myRadio" value="class1" />
+					  Class 1
+					</label>
+					<label>
+					  <input type="radio" name="myRadio" value="class2" />
+					  Class 2
+					</label>
+					<label>
+					  <input type="radio" name="myRadio" value="class3" />
+					  Class 3
+					</label>
+				</p>
+				<!-- Submit Button -->
+				<button id="button" disabled>Submit</button>
+				<!-- Response Messages -->
+				<p id="loading" style="display: none">Loading...</p>
+				<p id="error" style="display: none; color: red;"></p>
+				<h1 id="success" style="display: none">Success!</h1>
+			</form>
+			<!-- Styling -->
+			<style>
+				* { box-sizing: border-box; }
+				body { font-family: sans-serif; margin: 20px; padding: 0; }
+				.button {
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				cursor: pointer;
+				}
+				.button1 {background-color: #484fad;}
+			</style>
+			  
+		</center>
+		<!-- Load React. -->
+  		<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  		<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  		<!-- Load our React component. -->
+  		<script src="reactFront.js"></script>
+		<!-- Load our JS -->
+		<script src="apiControls.js"></script>
+	</body>
+</html>

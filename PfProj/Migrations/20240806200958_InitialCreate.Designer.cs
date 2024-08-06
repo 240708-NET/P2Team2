@@ -12,8 +12,8 @@ using PfProj.Helpers;
 namespace PfProj.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240805201209_AllEntitiesInitial")]
-    partial class AllEntitiesInitial
+    [Migration("20240806200958_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,7 +151,7 @@ namespace PfProj.Migrations
                     b.Property<int?>("dexRequirement")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isEquipped")
+                    b.Property<bool?>("isEquipped")
                         .HasColumnType("bit");
 
                     b.Property<int?>("magicAttackBonus")

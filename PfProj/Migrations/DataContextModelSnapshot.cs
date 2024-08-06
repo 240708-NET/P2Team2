@@ -148,7 +148,7 @@ namespace PfProj.Migrations
                     b.Property<int?>("dexRequirement")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isEquipped")
+                    b.Property<bool?>("isEquipped")
                         .HasColumnType("bit");
 
                     b.Property<int?>("magicAttackBonus")
