@@ -36,7 +36,7 @@ namespace CharacterBuilder
 
             string filePath = @"./ItemBuildList.txt";
             
-            GenerateItems(filePath);
+            //GenerateItems(filePath);
 
             CharacterManager manager = new CharacterManager(path);
             manager.RunCharacterMenu();
@@ -59,7 +59,7 @@ namespace CharacterBuilder
                 SaveAllItems(CreateItems(i, 80-(i*5), "Health Potion", filePath, "potion", 10, "", "", "", "all"), filePath, false);
             }
         }
-
+            // List<Item> randomSubset = GetRandomSubset(list, 100);
         public static void SaveAllItems(List<Item> itemList, string filePath, bool append)
         {
             TextWriter writer = null;

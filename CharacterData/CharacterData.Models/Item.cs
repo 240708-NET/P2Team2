@@ -9,6 +9,8 @@ namespace CharacterData.Models
     {
         
         public List<CharacterClass> characterClass { get; set; }
+
+        private List<Item> equippedItems = new List<Item>();
         //public int characterClassId { get; set; }
 
         public int id { get; set; } // The item PK in the DB
