@@ -15,24 +15,28 @@ body{
 
 .container{
     display: flex;
-
-    border-width: 5px;
-    border-color: red;
 }
 
 #column{
+    padding: 40px;
     width: 50%;
+}
 
-    border-width: 5px;
-    border-color: blue;
+#column header{
+    display: flex;
+    font-size: 14pt;
+    justify-content: center;
+}
+
+#column select{
+    display: flex;
+    font-size: 14pt;
+    justify-content: center;
 }
 
 #column p{
-    display: flex;
+    display: block;
     justify-content: left;
-
-    border-width: 5px;
-    border-color: yellow;
 }
 
 #ul button{
