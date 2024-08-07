@@ -69,12 +69,19 @@ async function submitCharacterForm(name, radioValue) {
   })
 }
 
+async function getCharacters(){
+  await get(event, 'characters').then(response => {
+    console.log("getCharacters: ", response);
+    outputBox.textContent = JSON.stringify(response);
+  })
+}
 
 let form = document.getElementById('form');
 let textarea = document.getElementById('textarea');
-let button = document.getElementById('button');
+let button = document.getElementById('submitbutton');
 let loadingMessage = document.getElementById('loading');
 let errorMessage = document.getElementById('error');
 let successMessage = document.getElementById('success');
+let outputBox = document.getElementById('outputBox')
 form.onsubmit = handleCharacterSubmit;
 textarea.oninput = handleTextareaChange;

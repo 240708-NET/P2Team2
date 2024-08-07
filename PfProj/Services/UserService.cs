@@ -8,6 +8,9 @@ using PfProj.Models.Characters;
 using PfProj.Models.CharacterClassItems;
 using PfProj.Models.Items;
 using Microsoft.AspNetCore.Mvc;
+using Services;
+using System;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 public interface ISharedService
 {
@@ -44,6 +47,7 @@ public class ModelService : ISharedService
 {
     private DataContext _context;
     private readonly IMapper _mapper;
+    private intermediateServices interService;
 
     public ModelService(
         DataContext context,
@@ -124,6 +128,12 @@ public class ModelService : ISharedService
         var target = _mapper.Map<Character>(model); // target is now an entity
 
         // manipulate data here
+        try {
+        target = interService.UpdateAttributes(target);
+        target = interService.UpdateStats(target);
+        } catch (Exception e) {
+            Console.WriteLine("Inermediate Services Exception: " + e);
+        }
         // get entity attributes through target.X
 
         // save to datacontext
@@ -131,12 +141,19 @@ public class ModelService : ISharedService
         _context.SaveChanges();
         return true;
     }
+
     public bool UpdateChar(int id, UpdateRequestChar model)
     {
         var targetId = getModelChar(id);
         var target = _mapper.Map(model, targetId); // target is now an entity
 
         // manipulate data here
+        try {
+        target = interService.UpdateAttributes(target);
+        target = interService.UpdateStats(target);
+        } catch (Exception e) {
+            Console.WriteLine("Inermediate Services Exception: " + e);
+        }
         // get entity attributes through target.X
 
         // update

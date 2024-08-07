@@ -147,6 +147,11 @@
         })
     }
 
+    // Redirect
+    function redirect(path){
+        window.location.href = path;
+    }
+
 
     // Start of DB verification functionality (Appending default values to DB)
 

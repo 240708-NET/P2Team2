@@ -30,6 +30,12 @@ namespace PfProj.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("armorClass")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("baseScore")
+                        .HasColumnType("int");
+
                     b.Property<string>("characterClassName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -52,12 +58,33 @@ namespace PfProj.Migrations
                     b.Property<int?>("magic")
                         .HasColumnType("int");
 
+                    b.Property<int?>("magicAttackBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("magicDamageBonus")
+                        .HasColumnType("int");
+
                     b.Property<int?>("magicResist")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("maxHitPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("meleeAttackBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("meleeDamageBonus")
                         .HasColumnType("int");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("rangedAttackBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("rangedDamageBonus")
+                        .HasColumnType("int");
 
                     b.Property<int?>("str")
                         .HasColumnType("int");
