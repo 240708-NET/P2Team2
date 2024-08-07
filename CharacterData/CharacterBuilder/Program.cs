@@ -35,6 +35,15 @@ namespace CharacterBuilder
             string path = @"./Characters.txt";
 
             string filePath = @"./ItemBuildList.txt";
+            
+            GenerateItems(filePath);
+
+            CharacterManager manager = new CharacterManager(path);
+            manager.RunCharacterMenu();
+        }
+
+        public static void GenerateItems(string filePath)
+        {
             for(int i =1 ; i<=15;i++ )
             {
                 SaveAllItems(CreateItems(i, 80-(i*5), "Bow", filePath, "ranged weapon", 10, "two handed", "piercing", "physical", "shadow weaver"), filePath, false);
@@ -49,9 +58,6 @@ namespace CharacterBuilder
                 SaveAllItems(CreateItems(i, 80-(i*5), "Ring", filePath, "armor", 10, "ring", "", "", "all"), filePath, false);
                 SaveAllItems(CreateItems(i, 80-(i*5), "Health Potion", filePath, "potion", 10, "", "", "", "all"), filePath, false);
             }
-
-            CharacterManager manager = new CharacterManager(path);
-            manager.RunCharacterMenu();
         }
 
         public static void SaveAllItems(List<Item> itemList, string filePath, bool append)
