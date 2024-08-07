@@ -7,11 +7,15 @@ namespace CharacterData.Models
 {
     public class Item
     {
+        
         public List<CharacterClass> characterClass { get; set; }
+
+        private List<Item> equippedItems = new List<Item>();
         //public int characterClassId { get; set; }
 
         public int id { get; set; } // The item PK in the DB
         public string name { get; set; } // The name of the item
+        public int level { get; set; } = 1;
         public double weight { get; set; } // The weight of the item
         public int value {get;set;} // The gold value of the item
         public string typeOfItem { get; set; } // The type of item (melee weapon, ranged weapon, armor, consumable, misc)
@@ -34,5 +38,10 @@ namespace CharacterData.Models
         public int dexRequirement { get; set; } = 0;
         public int wisRequirement { get; set; } = 0;
         public int magicRequirement { get; set; } = 0;
+
+        public Item()
+        {
+            characterClass = new List<CharacterClass>();
+        }
     }
 }

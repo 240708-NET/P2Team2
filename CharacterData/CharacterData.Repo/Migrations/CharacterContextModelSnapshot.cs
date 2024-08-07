@@ -152,6 +152,9 @@ namespace CharacterData.Repo.Migrations
                     b.Property<bool>("isEquipped")
                         .HasColumnType("bit");
 
+                    b.Property<int>("level")
+                        .HasColumnType("int");
+
                     b.Property<int>("magicAttackBonus")
                         .HasColumnType("int");
 

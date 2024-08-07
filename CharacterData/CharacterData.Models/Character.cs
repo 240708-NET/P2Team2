@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace CharacterData.Models
 {
@@ -13,9 +17,7 @@ namespace CharacterData.Models
         public int level { get; set; } = 1; // Level of the character
         public int experience { get; set; } = 0; // Experience points of the character
 
-
         private string characterClassName = ""; // Class of the character
-
 
         public int currentHitPoints {get; set;} = 0; // Current hit points for the character
         private int maxHitPoints {get; set;} = 0; // Max hit points for the character
@@ -44,9 +46,6 @@ namespace CharacterData.Models
 
         public Character() { }
 
-
-        
-
         public Character(CharacterClass newCharacterClass)
         {
             this.characterClass = newCharacterClass;
@@ -55,7 +54,7 @@ namespace CharacterData.Models
 
             experience = 0;
             level = 1;
-            gold = 500;
+            gold = 5000;
             this.characterClassName = this.characterClass.className;
 
             this.dex = characterClass.dex;
@@ -63,9 +62,28 @@ namespace CharacterData.Models
             this.wis = characterClass.wis;
             this.magic = characterClass.magic;
             this.magicResist = characterClass.magicResist;
-            
+
             CharacterCalculations();
-            
+        }
+
+        public Character(CharacterClass newCharacterClass, int goldAmount)
+        {
+            this.characterClass = newCharacterClass;
+
+            this.inventory = new List<Item>();
+
+            experience = 0;
+            level = 1;
+            gold = goldAmount;
+            this.characterClassName = this.characterClass.className;
+
+            this.dex = characterClass.dex;
+            this.str = characterClass.str;
+            this.wis = characterClass.wis;
+            this.magic = characterClass.magic;
+            this.magicResist = characterClass.magicResist;
+
+            CharacterCalculations();
         }
 
         public void CharacterCalculations()
@@ -321,6 +339,32 @@ namespace CharacterData.Models
             return inventoryItemList;
         }
 
+        public void PopulateInventoryFromJsonFile(string filePath, int numberOfItems)
+        {
+            List<Item> temporaryInventory = new List<Item>();
+
+            Random random = new Random();
+
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader(filePath);
+                var fileContents = reader.ReadToEnd();
+                inventory = JsonConvert.DeserializeObject<List<Item>>(fileContents);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+
+            for(int i = 0; i < numberOfItems; i++)
+            {
+                temporaryInventory.Add(inventory.ElementAt(random.Next(1, inventory.Count)));
+            }
+
+            inventory = temporaryInventory;
+        }
 
         /// <summary>
         /// Display the currently equipped items.
@@ -368,31 +412,56 @@ namespace CharacterData.Models
 
         public bool EquipItem(Item equipment)
         {
-            if(inventory.Contains(equipment) && equipment.isEquipped == false && equipment.typeOfItem == "potion")
-            {
-                UpdateCharacterStats(equipment);
-                inventory.Remove(equipment);
-                return true;
-            }
+            // if(inventory.Contains(equipment) && equipment.isEquipped == false && equipment.typeOfItem != "potion")
+            // {
+            //     UpdateCharacterStats(equipment);
+            //     inventory.Remove(equipment);
+            //     return true;
+            // }
 
-            if (inventory.Contains(equipment) && equipment.isEquipped == false)
+            List<Item> equippedItems = inventory.FindAll(i => i.isEquipped);
+            
+            if (inventory.Contains(equipment) && equipment.isEquipped == false && CanEquip(equipment))
             {
-                foreach (Item p in inventory)
+                foreach(Item p in equippedItems)
                 {
                     if (p.slotType == equipment.slotType)
                     {
                         UnequipItem( inventory[ inventory.IndexOf(p) ] );
-                        inventory[ inventory.IndexOf(p) ].isEquipped = true;
-                        UpdateCharacterStats(equipment);
-                        return true;
+                        equipment.isEquipped = true;
+                    }
+                    else if(equipment.slotType.ToLower() == "two handed" && (p.slotType.ToLower() == "left hand" || p.slotType.ToLower() == "right hand"))
+                    {
+                        UnequipItem( inventory[ inventory.IndexOf(p) ] );
+                        equipment.isEquipped = true;
                     }
                     else
                     {
-                        inventory[ inventory.IndexOf(p) ].isEquipped = true;
-                        UpdateCharacterStats(equipment);
-                        return true;
+                        equipment.isEquipped = true;
                     }
                 }
+
+                UpdateCharacterStats(equipment);
+                return true;
+
+                /*
+                // foreach (Item p in inventory)
+                // {
+                //     if ((p.slotType == equipment.slotType) )
+                //     {
+                //         UnequipItem( inventory[ inventory.IndexOf(p) ] );
+                //         inventory[ inventory.IndexOf(p) ].isEquipped = true;
+                //         UpdateCharacterStats(equipment);
+                //         return true;
+                //     }
+                //     else
+                //     {
+                //         inventory[ inventory.IndexOf(p) ].isEquipped = true;
+                //         UpdateCharacterStats(equipment);
+                //         return true;
+                //     }
+                // }
+                */
             }
             return false;
         }
@@ -409,14 +478,38 @@ namespace CharacterData.Models
             return false;
         }
 
-        
-        //NEED TO IMPLEMENT EVENTUALLY
-        // private bool CanEquip(Item equipment) // Replace with actual logic for character checks
-        // {
-        //     // Implement checks based on character class, stats, etc.
-        //     return true; // Replace with actual implementation
-        // }
+        public bool CanEquip(Item equipment)
+        {
+            // Implement checks based on character class, stats, etc.
+            if(this.str < equipment.strRequirement)
+                return false;
+            else if(this.dex < equipment.dexRequirement)
+                return false;
+            else if(this.wis < equipment.wisRequirement)
+                return false;
+            else if(this.magic < equipment.magicRequirement)
+                return false;
+            else if(!equipment.characterClass.Contains(this.characterClass))
+                return false;
+            else if(equipment.typeOfItem == "potion")
+                return false;
+            else
+                return true;
+        }
 
+        public void UsePotion(Item equipment)
+        {
+            if(equipment.typeOfItem == "potion")
+            {
+                this.currentHitPoints += equipment.currentHitPointBonus;
+
+                if(this.currentHitPoints > this.maxHitPoints)
+                    this.currentHitPoints = this.maxHitPoints;
+
+                inventory.Remove(equipment);
+            }
+                
+        }
         public void UpdateCharacterStats(Item equipment, bool isEquipping = true)
         {
             // Update character stats based on equipment bonuses (positive or negative based on isEquipping)
@@ -511,7 +604,6 @@ namespace CharacterData.Models
 ;
             Console.WriteLine(characterSheet);
         }
-
 
     public int GetMaxHitPoints(){return maxHitPoints;}
     public int GetCurrentHitPoints(){return currentHitPoints;}
