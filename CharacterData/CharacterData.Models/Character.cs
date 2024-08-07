@@ -339,7 +339,7 @@ namespace CharacterData.Models
             return inventoryItemList;
         }
 
-        public void PopulateInventoryFromJsonFile(string filePath)
+        public void PopulateInventoryFromJsonFile(string filePath, int numberOfItems)
         {
             List<Item> temporaryInventory = new List<Item>();
 
@@ -358,7 +358,7 @@ namespace CharacterData.Models
                     reader.Close();
             }
 
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < numberOfItems; i++)
             {
                 temporaryInventory.Add(inventory.ElementAt(random.Next(1, inventory.Count)));
             }
