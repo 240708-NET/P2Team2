@@ -510,6 +510,7 @@ namespace CharacterData.Models
             }
                 
         }
+        
         public void UpdateCharacterStats(Item equipment, bool isEquipping = true)
         {
             // Update character stats based on equipment bonuses (positive or negative based on isEquipping)
@@ -556,7 +557,6 @@ namespace CharacterData.Models
                 this.currentHitPoints -= equipment.currentHitPointBonus;
             }
         }
-
         public void DisplayCharacter()
         {
             // Get the strings for the inventory and equipped items
