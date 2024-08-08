@@ -13,7 +13,7 @@ class intermediateServices{
     // Example of instantiation:
     // param 1 = String[] -> ["Fighter"];
     // param 2 = Dictionary<string, int[]> -> ["Fighter", [14,12,10,8]];
-
+    // order: str, dex, wis, mag
     public intermediateServices(){ // instantiate with some example values
         classes = ["Fighter", "Wizard", "Shadow Weaver"];
         attributeDictionary.Add("Fighter", [14,12,10,8]);

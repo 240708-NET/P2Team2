@@ -6,10 +6,10 @@ using PfProj.Entities;
 public class CreateRequestItem
 {
     // Required Input
-     public string name { get; set; } // The name of the item
-    public double weight { get; set; } // The weight of the item
-    public int value {get;set;} // The gold value of the item
-    public string typeOfItem { get; set; } // The type of item (melee weapon, ranged weapon, armor, consumable, misc)
+     public required string name { get; set; } // The name of the item
+    public required double weight { get; set; } // The weight of the item
+    public required int value {get;set;} // The gold value of the item
+    public required string typeOfItem { get; set; } // The type of item (melee weapon, ranged weapon, armor, consumable, misc)
     // ^^^ New value used for kindOfWeapon and kindOfArmor (deprecated)
 
     // Optional Input

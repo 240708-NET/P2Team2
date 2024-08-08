@@ -48,7 +48,7 @@ public class ModelService : ISharedService
 {
     private DataContext _context;
     private readonly IMapper _mapper;
-    private intermediateServices interService;
+    private intermediateServices interService = new();
 
     public ModelService(
         DataContext context,

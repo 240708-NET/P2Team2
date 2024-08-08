@@ -219,8 +219,8 @@
             for (var j = 0; j < defaultItems.length; j++){
                 if (!names.includes(defaultItems[j].name)){
                     try{
-                        console.log(defaultItems[j].name + " was not found, appending...");
-                        await post(event,'items',defaultItems[i]);
+                        console.log(defaultItems[j].name, " was not found, appending with: ", defaultItems[j]);
+                        await post(event,'items',JSON.stringify(defaultItems[j]));
                     } catch (err) {
                         console.log('verifydb error: ', err);
                     }
@@ -233,24 +233,37 @@
     const defaultClasses = [
         {
             "className":"Wizard",
-            "dex":1,
-            "str":1,
-            "wis":1,
-            "magic":1,
-            "magicResist":1
+            "dex":8,
+            "str":10,
+            "wis":14,
+            "magic":12,
         },
+        {
+            "className":"Fighter",
+            "dex":12,
+            "str":14,
+            "wis":10,
+            "magic":8,
+        },
+        {
+            "className":"Shadow Weaver",
+            "dex":8,
+            "str":10,
+            "wis":12,
+            "magic":14,
+        }
     ]
     async function verifyClasses(){ // appends defaults
         let names = []
-        await get(event, 'characterclasses').then(async response => {
+        await get(event, 'characterClasses').then(async response => {
             for(var i = 0; i < response.length; i++){
-                names.push(response[i].name);
+                names.push(response[i].className);
             }
             for (var j = 0; j < defaultClasses.length; j++){
-                if (!names.includes(defaultClasses[j].name)){
+                if (!names.includes(defaultClasses[j].className)){
                     try{
-                        console.log(defaultClasses[j].name + " was not found, appending...");
-                        await post(event,'classes',defaultClasses[i]);
+                        console.log(defaultClasses[j].className + " was not found, appending: ", defaultItems[j]);
+                        await post(event,'characterClasses',JSON.stringify(defaultClasses[j]));
                     } catch (err) {
                         console.log('verifydb error: ', err);
                     }

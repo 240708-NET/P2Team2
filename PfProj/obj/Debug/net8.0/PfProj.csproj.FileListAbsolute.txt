@@ -131,8 +131,5 @@ C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\obj\Debug\net8.0\refint\P
 C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\obj\Debug\net8.0\PfProj.pdb
 C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\obj\Debug\net8.0\PfProj.genruntimeconfig.cache
 C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\obj\Debug\net8.0\ref\PfProj.dll
-C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\selenium-manager\linux\selenium-manager
-C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\selenium-manager\macos\selenium-manager
-C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\selenium-manager\windows\selenium-manager.exe
-C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\WebDriver.dll
+C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\nunit.framework.dll
+C:\Users\colto\Documents\GitHub\P2Team2\P2Team2\PfProj\bin\Debug\net8.0\nunit.framework.legacy.dll

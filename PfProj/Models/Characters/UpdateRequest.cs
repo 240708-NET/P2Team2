@@ -7,7 +7,7 @@ public class UpdateRequestChar
 { 
     // TBI
     // Required Input
-    public string name { get; set; } // Name of the character
+    public required string name { get; set; } // Name of the character
     public required string characterClassName { get; set; }
     // Optional Input
     public int? level { get; set; } // Level of the character
