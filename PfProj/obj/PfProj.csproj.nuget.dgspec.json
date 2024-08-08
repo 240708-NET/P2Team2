@@ -60,10 +60,6 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.7, )"
-            },
-            "NUnit": {
-              "target": "Package",
-              "version": "[4.1.0, )"
             }
           },
           "imports": [
