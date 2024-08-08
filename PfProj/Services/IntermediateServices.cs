@@ -66,7 +66,7 @@ class intermediateServices{
         return model;
     }
         // items dont have foreign keys with characters so we cannot pull character attributes or equipment
-        public Item EquipItem(Item target)
+        public Item EquipItem(Item target, Character character)
         {
             if (CanEquip(target))
                 target.isEquipped = !target.isEquipped;
@@ -80,6 +80,9 @@ class intermediateServices{
                 return false;
             else
                 return true;
-        }     
+        }
+        public bool LevelUp(Character target){
+            return false;
+        }
 }
 

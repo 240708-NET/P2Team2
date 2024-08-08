@@ -13,6 +13,7 @@ public class Item
     // ^^^ New value used for kindOfWeapon and kindOfArmor (deprecated)
 
     // Optional Input
+    public int? characterID { get; set; } = -1;
     public string? slotType { get; set; } = "None"; // The slot that the item is able to be equipped in (head, chest, arms, rightHand, leftHand, twoHanded, legs, ring)
     public bool? isEquipped {get; set;} = false;
     public string? description { get; set; } = "No Description Given"; // The description of the equipment

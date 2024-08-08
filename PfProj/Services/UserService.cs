@@ -291,8 +291,13 @@ public class ModelService : ISharedService
     // EQ & UnEQ
     public bool EquipItem(EquipRequestItem model){
         var target = _mapper.Map<Item>(model);
-        target = interService.EquipItem(target);
-        // here we would update DB, but we can't put/patch without ID
-        return target.isEquipped.GetValueOrDefault(false);
+        int characterID = target.characterID.GetValueOrDefault(-1);
+        if (target.characterID != -1){
+            Character character = GetByIdChar(characterID);
+            target = interService.EquipItem(target, character);
+            // here we would update DB, but we can't put/patch without ID
+            return target.isEquipped.GetValueOrDefault(false);
+        }
+        return false;
     }
 }
