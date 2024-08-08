@@ -4,7 +4,6 @@ import HeaderStyle from "./styles/HeaderStyle.module.css";
 import BodyStyle from "./styles/BodyStyle.module.css";
 import Link from 'next/link';
 import { NavBar } from "./components/NavBar";
-import { CharacterSelect } from "./components/CharacterSelect";
 
 export default function Home() {
   return (

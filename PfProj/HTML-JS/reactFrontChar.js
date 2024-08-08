@@ -80,7 +80,8 @@ async function getCharacters(){
   try{
     await get(event, 'characters').then(response => {
       console.log("getCharacters: ", response);
-      outputBox.textContent = JSON.stringify(response);
+      //outputBox.textContent = JSON.stringify(response);
+      return response;
     })
   }
   catch (err) {
