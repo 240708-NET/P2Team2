@@ -1,17 +1,15 @@
 'use client'
 
 //import Head from "next/head";
-import CharacterDisplay from '../pages/CharacterDisplay';
-import CharacterForm from '../pages/CharacterForm';
-import Home from '../page';
 import HeaderStyle from "../styles/HeaderStyle.module.css";
+import Link from 'next/link';
 
 export const NavBar = () => {
     return(
             <nav id={HeaderStyle.header}>
-                <h1>Character Creator</h1>
-                <button className={HeaderStyle.navButton}>Display Characters</button>
-                <button className={HeaderStyle.navButton}>Create New Character</button>
+                <button className={HeaderStyle.navButton}><Link href='/'>Home</Link></button>
+                <button className={HeaderStyle.navButton}><Link href='/pages/characterDisplay'>Display Characters</Link></button>
+                <button className={HeaderStyle.navButton}><Link href='/pages/characterForm'>Create New Character</Link></button>
                 <button className={HeaderStyle.shopButton}>$ SHOP $</button>
             </nav>
     )
