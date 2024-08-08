@@ -2,16 +2,14 @@
 import Image from "next/image";
 import HeaderStyle from "./styles/HeaderStyle.module.css";
 import BodyStyle from "./styles/BodyStyle.module.css";
+import Link from 'next/link';
+import { NavBar } from "./components/NavBar";
 
 export default function Home() {
   return (
     <main id="Home">
-      <header id={HeaderStyle.header}>
-        <h1>Character Creator</h1>
-        <button className={HeaderStyle.navButton}>Display Characters</button>
-        <button className={HeaderStyle.navButton}>Create New Character</button>
-        <button className={HeaderStyle.shopButton}>$ SHOP $</button>
-      </header>
+      <NavBar/>
+      <h1 className={HeaderStyle.h1}>Welcome to Character Creator!</h1>
       <div className={BodyStyle.container}>
         <div id={BodyStyle.column}>
           <select required id="characters" name="characters">

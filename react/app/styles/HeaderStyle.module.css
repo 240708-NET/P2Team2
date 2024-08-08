@@ -1,20 +1,29 @@
 /* header only works without # sign ?? Breaks with # sign put in front */
 #header{
-    background-color: rgba(21, 104, 248, 0.825);
+    background-color: rgb(70, 72, 115);
     display: flex;
-    font-size: 20pt;
+    font-size: 14pt;
     color: white;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: left;
 }
 
-#header h1{
+.h1{
+    background-color: rgb(94, 114, 187);
     padding: 10px;
+    font-size: 14pt;
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 
 #header nav{
     font-size: 12pt;
+}
 
+#header button{
+    display: block;
+    justify-content: left;
 }
 
 .button{

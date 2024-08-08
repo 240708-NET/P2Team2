@@ -1,9 +1,10 @@
 import React from "react";
-import {NavBar} from "../components/NavBar";
+import { NavBar } from "../../components/NavBar";
 
-function CharacterForm () {
+const CharacterForm = () => {
     return(
         <main id="CharacterDisplay">
+            <NavBar/>
             <p>Character stuff here</p>
         </main>
     )
