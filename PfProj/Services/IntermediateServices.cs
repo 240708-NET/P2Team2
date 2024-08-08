@@ -4,6 +4,8 @@ using Microsoft.VisualBasic;
 using PfProj.Models.Characters;
 using WebApi.Controllers;
 using PfProj.Entities;
+using System.Formats.Tar;
+
 class intermediateServices{
     public String[] classes;
     Dictionary<string, int[]> attributeDictionary = [];
@@ -63,4 +65,21 @@ class intermediateServices{
         }
         return model;
     }
+        // items dont have foreign keys with characters so we cannot pull character attributes or equipment
+        public Item EquipItem(Item target)
+        {
+            if (CanEquip(target))
+                target.isEquipped = !target.isEquipped;
+            else
+                target.isEquipped = false;
+            return target;
+        }
+        public bool CanEquip(Item equipment)
+        {
+            if(equipment.typeOfItem == "potion")
+                return false;
+            else
+                return true;
+        }     
 }
+

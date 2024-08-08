@@ -4,7 +4,7 @@
             if (event)
                 event.preventDefault();
             var loginURL = 'http://localhost:4000/' + tableName;
-            fetch(loginURL, {METHOD: 'GET', headers:{'Content-Type':'application/json'},})
+            fetch(loginURL, {method: 'GET', headers:{'Content-Type':'application/json'}})
             .then(result => { 
                 return result.json(); 
             })
@@ -69,23 +69,25 @@
         return new Promise(async function (resolve, reject) {
             if (event)
                 event.preventDefault();
-            var id = await nameToID(tableName, name);
-            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
-            fetch(loginURL, {method: 'PUT', 
-                headers:{'Content-Type':'application/json'},
-                body: ourBody // json in calling method
+            await nameToID(tableName, name).then(response => {;
+                var loginURL = 'http://localhost:4000/' + tableName + '/' + response;
+                console.log("Created URL: " + loginURL);
+                fetch(loginURL, {method: 'PUT', 
+                    headers:{'Content-Type':'application/json'},
+                    body: ourBody // json in calling method
+                })
+                .then(result => { 
+                    return result.json(); 
+                })
+                .then((result) => {
+                    console.log('in response: ', result);
+                    return resolve(result);
+                })
+                .catch(error => {
+                    console.log('error: ', error)
+                    return reject(error);
+                });
             })
-            .then(result => { 
-                return result.json(); 
-            })
-            .then((result) => {
-                console.log('in response: ', result);
-                return resolve(result);
-            })
-            .catch(error => {
-                console.log('error: ', error)
-                return reject(error);
-            });
         })
     }
 
@@ -96,7 +98,8 @@
                 event.preventDefault();
             var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
             fetch(loginURL, {method: 'DELETE', 
-                headers:{'Content-Type':'application/json'}
+                headers:{'Content-Type':'application/json'},
+                body: id
             })
             .then(result => { 
                 return result.json(); 
@@ -117,10 +120,39 @@
         return new Promise(async function (resolve, reject) {
             if (event)
                 event.preventDefault();
-            var id = await nameToID(tableName, name);
-            var loginURL = 'http://localhost:4000/' + tableName + '/' + id;
-            fetch(loginURL, {method: 'DELETE', 
-                headers:{'Content-Type':'application/json'}
+            await nameToID(tableName, name).then(response => {;
+                //console.log("ID received: " + response);
+                var loginURL = 'http://localhost:4000/' + tableName + '/' + String(response);
+                console.log("Created URL: " + loginURL);
+                fetch(loginURL, {method: 'DELETE', 
+                    headers:{'Content-Type':'application/json'},
+                    body: name
+                })
+                .then(result => { 
+                    return result.json(); 
+                })
+                .then((result) => {
+                    console.log('in response: ', result);
+                    return resolve(result);
+                })
+                .catch(error => {
+                    console.log('error: ', error)
+                    return reject(error);
+                });
+            })
+        })
+    }
+
+    // Special Request Methods
+    // EQUIP; BODY CAN ONLY BE NAME
+    async function equip(event, ourBody){ // returns a promise
+        return new Promise(function (resolve, reject) {
+            if (event)
+                event.preventDefault();
+            var loginURL = 'http://localhost:4000/items';
+            fetch(loginURL, {method: 'PATCH', 
+                headers:{'Content-Type':'application/json'},
+                body: ourBody // json in calling method
             })
             .then(result => { 
                 return result.json(); 
@@ -138,12 +170,22 @@
     
     // Helper Method
     async function nameToID(tablename, name){ // returns ID of name in tablename
-        let names = []
-        await get(event, tablename).then(async response => {
-            for(var i = 0; i < response.length; i++){
-                if (response[i].name == name)
-                    return response[i].id;
-            }
+        return new Promise(async function (resolve, reject){
+            let names = []
+            await get(event, tablename).then(async response => {
+                for(var i = 0; i < response.length; i++){
+                    //console.log(String(response[i].name) === String(name));
+                    if (String(response[i].name) == String(name)){
+                        console.log("Found id: " + response[i].id);
+                        return resolve(response[i].id);
+                    }
+                    if (String(response[i].className) == String(name)){
+                        console.log("Found id: " + response[i].id);
+                        return resolve(response[i].id);
+                    }
+                }
+            })
+            return reject(new Error("Bad Name"));
         })
     }
 

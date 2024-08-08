@@ -38,7 +38,7 @@ var app = builder.Build();
     // global error handler
     app.UseMiddleware<ErrorHandlerMiddleware>();
 
-    app.MapControllers();
+    app.MapControllers();   
 }
 
 app.Run("http://localhost:4000");

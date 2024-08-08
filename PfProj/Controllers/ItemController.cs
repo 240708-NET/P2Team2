@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PfProj.Models.Items;
 using PfProj.Services;
+//using PfProj.Entities;
 
 [ApiController]
 [Route("[controller]")]
@@ -57,5 +58,13 @@ public class ItemsController : ControllerBase
     {
         _ModelService.DeleteItem(id);
         return Ok(new { message = "Deleted" });
+    }
+
+    public IActionResult EquipItem(EquipRequestItem model)
+    {
+        if (_ModelService.EquipItem(model))
+            return Ok(new { message = "Updated" });
+        else 
+            return Ok(new { message = "Client-side Error" });
     }
 }

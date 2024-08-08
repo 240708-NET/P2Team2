@@ -41,6 +41,7 @@ public interface ISharedService
     bool CreateItem(CreateRequestItem model);
     bool UpdateItem(int id, UpdateRequestItem model);
     void DeleteItem(int id);
+    bool EquipItem(EquipRequestItem model);
 }
 
 public class ModelService : ISharedService
@@ -286,5 +287,12 @@ public class ModelService : ISharedService
         var target = _context.Items.Find(id);
         if (target == null) throw new KeyNotFoundException("ID not found");
             return target;
+    }
+    // EQ & UnEQ
+    public bool EquipItem(EquipRequestItem model){
+        var target = _mapper.Map<Item>(model);
+        target = interService.EquipItem(target);
+        // here we would update DB, but we can't put/patch without ID
+        return target.isEquipped.GetValueOrDefault(false);
     }
 }

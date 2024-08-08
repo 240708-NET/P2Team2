@@ -22,5 +22,8 @@ public class AutoMapperProfile : Profile
         CreateMap<UpdateRequestChar, Character>();
         CreateMap<UpdateRequestClassItem, CharacterClassItem>();
         CreateMap<UpdateRequestItem, Item>();
+
+        // Special Requests
+        CreateMap<EquipRequestItem, Item>();
     }
 }
