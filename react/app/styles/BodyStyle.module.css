@@ -17,6 +17,32 @@ body{
     display: flex;
 }
 
+.header{
+    background-color: rgb(94, 114, 187);
+    padding: 10px;
+    font-size: 14pt;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+#body{
+    font-size: 12pt;
+    padding: 40px;
+    justify-content: center;
+}
+
+#home{
+    display: flex;
+    padding: 50px;
+    justify-content: center;
+}
+
+#home p{
+    padding: 50px;
+    justify-content: center;
+}
+
 #column{
     padding: 40px;
     width: 50%;
@@ -32,11 +58,22 @@ body{
     display: flex;
     font-size: 14pt;
     justify-content: center;
+    padding-bottom: 5px;
+}
+
+#column li{
+    padding: 3px;
 }
 
 #column p{
     display: block;
     justify-content: left;
+}
+
+#column button{
+    display: flex;
+    background-color: rgb(211, 220, 226);
+    padding: 5px;
 }
 
 #ul button{
