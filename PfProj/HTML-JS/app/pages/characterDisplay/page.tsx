@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar } from "@/app/components/NavBar";
-import { CharacterSelect } from "@/app/components/CharacterSelect";
+import CharacterSelect from "@/app/components/CharacterSelect";
 import HeaderStyle from "../../styles/HeaderStyle.module.css";
 import BodyStyle from "../../styles/BodyStyle.module.css";
 
