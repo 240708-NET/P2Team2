@@ -5,7 +5,7 @@
 
 *connectionstring*
 *appsettings*
-*Migrations*
+Migrations/
 
 # dotenv files
 .env
