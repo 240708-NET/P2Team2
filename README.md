@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-dotnet run" inside PfProj after performing a database migration. Configure connection string to your specifications. (appsettings.json) Hit API through local HTML. (ie; C:\...\HTML-JS\Class.html)
-=======
-cd PfProj
-Configure the connection string in PfProj/appsettings.json to your specifications
-dotnet ef migrations add 'migration_name'
-dotnet ef database update
-dotnet run
-Hit API through local HTML. (ie; C:\...\HTML-JS\Class.html)
->>>>>>> 2feacc0083621dca67ccf9502272a5eb646073f7
+1.) First Delete Migrations Folder
+2.) Configure your docker container server from Microsoft SQL
+3.) Configure your connection string in your appsettings.json file
+4.) Then Perform a database migration inside of the PfProj folder by running the code: dotnet ef migrations add InitialMigration. Then update the database by running this in terminal: dotnet ef database update.
+5.) Run the terminal command "dotnet run" inside PfProj
+6.) Open the Class.html file in the folders
