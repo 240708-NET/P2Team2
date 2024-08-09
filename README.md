@@ -1,1 +1,5 @@
-dotnet run" inside PfProj after performing a database migration. Configure connection string to your specifications. (appsettings.json) Hit API through local HTML. (ie; C:\...\HTML-JS\Class.html)
+cd PfProj
+dotnet -ef migrations add 'migration_name'
+dotnet run
+Configure the connection string in PfProj/appsettings.json to your specifications
+Hit API through local HTML. (ie; C:\...\HTML-JS\Class.html)
